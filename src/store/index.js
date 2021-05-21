@@ -13,6 +13,7 @@ export default new Vuex.Store({
     genreList: [],
     languageList: [],
     movieList: [],
+    userInfo: {},
   },
   getters: {
     getGenreList(state) {
@@ -23,7 +24,7 @@ export default new Vuex.Store({
     },
     getMovieList(state) {
       return state.movieList
-    }
+    },
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     FETCH_MOVIE_LIST(state, movieList) {
       state.movieList = movieList
+    },
+    CREATE_USER(state, userInfo) {
+      state.userInfo = userInfo
     },
   },
   actions: {
@@ -67,8 +71,15 @@ export default new Vuex.Store({
       const response = await axios.get(MOVIE_LIST_URL)
       const movieList = response.data
       commit('FETCH_MOVIE_LIST', movieList)
-    }
+    },
+    async CREATE_USER({ commit }, userInfo) {
+      const USER_CREATE_URL = '/api/v1/accounts/signup/'
+      const data = userInfo
+      const response = await axios.post(USER_CREATE_URL, data)
+      console.log(response)
 
+      commit('CREATE_USER', response.data)
+    },
   },
   modules: {
 
