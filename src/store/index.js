@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     genreList: [],
     languageList: [],
+    movieList: [],
   },
   getters: {
     getGenreList(state) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     getLanguageList(state) {
       return state.languageList
+    },
+    getMovieList(state) {
+      return state.movieList
     }
   },
   mutations: {
@@ -27,7 +31,10 @@ export default new Vuex.Store({
     },
     FETCH_LANGUAGE_LIST(state, languageList) {
       state.languageList = languageList
-    }
+    },
+    FETCH_MOVIE_LIST(state, movieList) {
+      state.movieList = movieList
+    },
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -49,6 +56,18 @@ export default new Vuex.Store({
       const languageList = response.data
       commit('FETCH_LANGUAGE_LIST', languageList)
     },
+    async FETCH_MOVIE_GENRE_LIST({ commit }, genre) {
+      const MOVIE_LIST_URL = `api/v1/movies?genre=${genre}`
+      const response = await axios.get(MOVIE_LIST_URL)
+      const movieList = response.data
+      commit('FETCH_MOVIE_LIST', movieList)
+    },
+    async FETCH_MOVIE_LANGUAGE_LIST({ commit }, language) {
+      const MOVIE_LIST_URL = `api/v1/movies?language=${language}`
+      const response = await axios.get(MOVIE_LIST_URL)
+      const movieList = response.data
+      commit('FETCH_MOVIE_LIST', movieList)
+    }
 
   },
   modules: {
