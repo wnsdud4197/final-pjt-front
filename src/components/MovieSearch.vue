@@ -17,13 +17,13 @@
       </div>
     </div>
     <MovieSearchForm/>
-    <div class="row">
+    <section class="row">
       <MovieCategory
         v-for="categoryItem in category"
         :key="categoryItem.id"
         :categoryItem="categoryItem"
       />
-    </div>
+    </section>
   </div>
 </template>
 
