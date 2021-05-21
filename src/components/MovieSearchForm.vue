@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text">
-    <button></button>
+    <button class="btn btn-info">x</button>
   </div>
 </template>
 
