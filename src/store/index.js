@@ -7,6 +7,8 @@ Vue.use(Vuex)
 // axios 설정
 axios.defaults.baseURL = 'http://localhost:8000'
 
+const token = localStorage.getItem('token')
+axios.defaults.headers.common
 
 export default new Vuex.Store({
   state: {
