@@ -14,6 +14,8 @@ export default new Vuex.Store({
     languageList: [],
     movieList: [],
     userInfo: {},
+    modalMovie: [],
+    showModal: false,
   },
   getters: {
     getGenreList(state) {
@@ -25,6 +27,12 @@ export default new Vuex.Store({
     getMovieList(state) {
       return state.movieList
     },
+    getModalMovie(state) {
+      return state.modalMovie
+    },
+    getShowModal(state) {
+      return state.showModal
+    }
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -39,6 +47,12 @@ export default new Vuex.Store({
     CREATE_USER(state, userInfo) {
       state.userInfo = userInfo
     },
+    UPDATE_MODAL_MOVIE(state, movie) {
+      state.modalMovie = movie
+    },
+    SHOW_MODAL(state) {
+      state.showModal = !state.showModal
+    }
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
