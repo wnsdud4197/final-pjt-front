@@ -7,6 +7,8 @@ Vue.use(Vuex)
 // axios 설정
 axios.defaults.baseURL = 'http://localhost:8000'
 
+const token = localStorage.getItem('token')
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 export default new Vuex.Store({
   state: {
@@ -14,6 +16,7 @@ export default new Vuex.Store({
     languageList: [],
     movieList: [],
     userInfo: {},
+    token: localStorage.getItem('token'),
   },
   getters: {
     getGenreList(state) {
@@ -24,6 +27,10 @@ export default new Vuex.Store({
     },
     getMovieList(state) {
       return state.movieList
+    },
+    isAuthenticated(state) {
+      const result = state.token ? true : false
+      return result
     },
   },
   mutations: {
@@ -37,6 +44,12 @@ export default new Vuex.Store({
       state.movieList = movieList
     },
     CREATE_USER(state, userInfo) {
+      state.userInfo = userInfo
+    },
+    AUTH_USER(state, token) {
+      state.token = token
+    },
+    USER_INFO(state, userInfo) {
       state.userInfo = userInfo
     },
   },
@@ -76,9 +89,14 @@ export default new Vuex.Store({
       const USER_CREATE_URL = '/api/v1/accounts/signup/'
       const data = userInfo
       const response = await axios.post(USER_CREATE_URL, data)
-      console.log(response)
-
       commit('CREATE_USER', response.data)
+    },
+    async AUTH_USER({ commit }, userInfo) {
+      const AUTH_USER_URL = '/api/token/'
+      const data = userInfo
+      const response = await axios.post(AUTH_USER_URL, data)
+      this.state.userInfo = data    
+      commit('AUTH_USER', response.data)
     },
   },
   modules: {
