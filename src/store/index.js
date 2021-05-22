@@ -7,8 +7,8 @@ Vue.use(Vuex)
 // axios 설정
 axios.defaults.baseURL = 'http://localhost:8000'
 
-const token = localStorage.getItem('token')
-axios.defaults.headers.common
+// const token = localStorage.getItem('token')
+// axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 export default new Vuex.Store({
   state: {
@@ -92,10 +92,34 @@ export default new Vuex.Store({
       const USER_CREATE_URL = '/api/v1/accounts/signup/'
       const data = userInfo
       const response = await axios.post(USER_CREATE_URL, data)
-      console.log(response)
-
       commit('CREATE_USER', response.data)
     },
+    // async AUTH_USER({ commit }, userInfo) {
+    //   const AUTH_USER_URL = '/api/token/'
+    //   // const USER_INFO_URL = '/api/v1/accounts/userinfo/'
+
+    //   const data = userInfo
+
+    //   const response = await axios.post(AUTH_USER_URL, data)    
+    //   commit('AUTH_USER', response.data)
+
+    //   // const res = await axios.post(USER_INFO_URL, data)
+    //   // commit('USER_INFO', res.data)
+    // },
+    AUTH_USER({ commit }, userInfo) {
+      return new Promise((resolve) => {
+        const AUTH_USER_URL = '/api/token/'
+        const data = userInfo
+        axios.post(AUTH_USER_URL, data)
+          .then((response) => {
+            const token = response.data.access
+            
+            localStorage.setItem('token', token)
+            commit('AUTH_USER', token)
+            resolve()
+          })
+      })
+    }
   },
   modules: {
 

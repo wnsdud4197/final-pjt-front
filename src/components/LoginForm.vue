@@ -27,7 +27,10 @@ export default {
   },
   methods: {
     onClick() {
-      this.$store.dispatch()
+      this.$store.dispatch('AUTH_USER', this.userInfo)
+      .then(() => {
+        this.$router.push('/')
+      })   
     },
   },
 }
