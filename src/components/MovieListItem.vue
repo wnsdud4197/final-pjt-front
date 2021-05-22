@@ -1,6 +1,6 @@
 <template>
   <div class="col m-3">
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;" @click="onClick(movie)">
       <img :src="poster_path" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">{{ movie.title }}</p>
@@ -22,9 +22,19 @@ export default {
       return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`
     }
   },
+  methods: {
+    async onClick(movie) {
+      this.$store.commit('UPDATE_MODAL_MOVIE', movie)
+      this.$store.commit('SHOW_MODAL')
+    }
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+.card:hover {
+  animation: heartBeat;
+  animation-duration: 2s;
+  opacity: 0.90;
+}
 </style>

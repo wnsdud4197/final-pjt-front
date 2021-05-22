@@ -16,7 +16,8 @@ export default new Vuex.Store({
     languageList: [],
     movieList: [],
     userInfo: {},
-    token: localStorage.getItem('token'),
+    modalMovie: [],
+    showModal: false,
   },
   getters: {
     getGenreList(state) {
@@ -28,10 +29,12 @@ export default new Vuex.Store({
     getMovieList(state) {
       return state.movieList
     },
-    // isAuthenticated(state) {
-    //   const result = state.token ? true : false
-    //   return result
-    // },
+    getModalMovie(state) {
+      return state.modalMovie
+    },
+    getShowModal(state) {
+      return state.showModal
+    }
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -46,12 +49,12 @@ export default new Vuex.Store({
     CREATE_USER(state, userInfo) {
       state.userInfo = userInfo
     },
-    AUTH_USER(state, token) {
-      state.token = token
+    UPDATE_MODAL_MOVIE(state, movie) {
+      state.modalMovie = movie
     },
-    // USER_INFO(state, userInfo) {
-    //   state.userInfo = userInfo
-    // },
+    SHOW_MODAL(state) {
+      state.showModal = !state.showModal
+    }
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
