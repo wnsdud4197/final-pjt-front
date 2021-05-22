@@ -18,6 +18,7 @@ export default new Vuex.Store({
     userInfo: {},
     modalMovie: [],
     showModal: false,
+    token: localStorage.getItem('token'),
   },
   getters: {
     getGenreList(state) {
@@ -54,7 +55,10 @@ export default new Vuex.Store({
     },
     SHOW_MODAL(state) {
       state.showModal = !state.showModal
-    }
+    },
+    AUTH_USER(state, token) {
+      state.token = token
+    },
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
