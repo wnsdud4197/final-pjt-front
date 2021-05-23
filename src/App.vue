@@ -1,15 +1,42 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/signup">Signup</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/movie">Movie</router-link> |
-      <router-link to="/community">community</router-link>
+      <div v-if="!isLoggedIn">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/signup">Signup</router-link> |
+        <router-link to="/login">Login</router-link> |
+      </div>
+      <div v-else>
+        <img :src="profile" alt="">
+        <router-link to="/">Home</router-link> |
+        <router-link to="" @click.native="logout">Logout</router-link> |
+        <router-link to="/movie">Movie</router-link> |
+        <router-link to="/community">community</router-link>
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated
+    },
+    profile() {
+      return `http://localhost:8000${localStorage.getItem('image')}`
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('AUTH_LOGOUT')
+      this.$router.push('/login')
+    }
+  },
+}
+</script>
 
 <style>
 #app {
