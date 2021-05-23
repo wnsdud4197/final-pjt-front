@@ -18,11 +18,21 @@
     </div>
     <MovieSearchForm/>
     <section class="row">
-      <MovieCategory
-        v-for="categoryItem in category"
-        :key="categoryItem.id"
-        :categoryItem="categoryItem"
-      />
+      <carousel
+        v-if="category && category.length"
+        :items="4"
+        :nav="true"
+        :dots="false" 
+        :rewind="false"
+        :mouseDrag="false"
+        class="marginTop50"
+      >
+        <MovieCategory
+          v-for="categoryItem in category"
+          :key="categoryItem.id"
+          :categoryItem="categoryItem"
+        />
+      </carousel>      
     </section>
   </div>
 </template>
@@ -30,12 +40,14 @@
 <script>
 import MovieSearchForm from '@/components/MovieSearchForm'
 import MovieCategory from '@/components/MovieCategory'
+import carousel from 'vue-owl-carousel'
 
 export default {
   name: 'MovieSearch',
   components: {
     MovieSearchForm,
     MovieCategory,
+    carousel,
   },
   data() {
     return {
