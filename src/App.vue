@@ -7,11 +7,13 @@
         <router-link to="/login">Login</router-link> |
       </div>
       <div v-else>
-        <img :src="profile" alt="">
         <router-link to="/">Home</router-link> |
         <router-link to="" @click.native="logout">Logout</router-link> |
         <router-link to="/movie">Movie</router-link> |
-        <router-link to="/community">community</router-link>
+        <router-link to="/community">community</router-link> |
+        <router-link to="/profile" class="profile">
+          <img :src="profile" alt="" class="profileimage border border-3 rounded-circle">
+        </router-link>
       </div>
     </div>
     <router-view/>
@@ -27,7 +29,7 @@ export default {
     },
     profile() {
       return `http://localhost:8000${localStorage.getItem('image')}`
-    }
+    },
   },
   methods: {
     logout() {
@@ -58,5 +60,15 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.profile {
+  position: absolute;
+  right: 2rem;
+}
+
+.profileimage {
+  height: 5rem;
+  width: 5rem;
 }
 </style>
