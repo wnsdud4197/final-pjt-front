@@ -13,10 +13,10 @@
         <label for="password-confirmation" class="form-label">비밀번호 확인</label>
         <input v-model="userInfo.password_confirmation" type="password" class="form-control" id="password-confirmation">
       </div>
-      <!-- <div class="my-4">
-        <input type="file" @change="onChangeImages"><br>
+      <div class="my-4">
+        <input ref="image" type="file" @change="onChangeImages"><br>
         <img v-if="imageUrl" :src="imageUrl" style="height: 150px; width: 150px;" class="mt-2">
-      </div> -->
+      </div>
       <button @click.prevent="onClick" type="submit" class="btn btn-primary">회원가입</button>
     </form>
   </div>
@@ -30,26 +30,32 @@ export default {
       userInfo: {
         username: '',
         password: '',
-        // password_confirmation: '',
+        password_confirmation: '',
       },
-      // imageUrl: '',
+      imageUrl: '',
     }
   },
   methods: {
-    // onChangeImages(event) {
-    //     // 이미지 담기
-    //     const form = new FormData() 
-    //     const file = event.target.files[0]
-    //     form.append('form', file)
-
-    //     // 이미지 미리보기
-    //     this.imageUrl = URL.createObjectURL(file)
-    // },
+    onChangeImages(event) {
+      const file = event.target.files[0]
+      // 이미지 미리보기
+      this.imageUrl = URL.createObjectURL(file)
+    },
     onClick() {
+      // 이미지 담기
+      const form = new FormData() 
+      const file = this.$refs['image'].files[0]
+      form.append('image', file)
+      form.append('username', this.userInfo.username)
+      form.append('password', this.userInfo.password)
+      form.append('password_confirmation', this.userInfo.password_confirmation)
+    
+      // { header: { 'Content-Type': 'multipart/form-data' }}
       // const userInfo = new FormData()
       // userInfo.append('form', this.form)
       // userInfo.append('others', this.others)
-      this.$store.dispatch('CREATE_USER', this.userInfo)
+      // this.$store.dispatch('CREATE_USER', this.userInfo)
+      this.$store.dispatch('CREATE_USER', form)
       .then(() => {
         this.$router.push('/')
       })      

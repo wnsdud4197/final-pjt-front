@@ -7,9 +7,6 @@ Vue.use(Vuex)
 // axios 설정
 axios.defaults.baseURL = 'http://localhost:8000'
 
-// const token = localStorage.getItem('token')
-// axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
 export default new Vuex.Store({
   state: {
     genreList: [],
@@ -35,7 +32,14 @@ export default new Vuex.Store({
     },
     getShowModal(state) {
       return state.showModal
-    }
+    },
+    isAuthenticated(state) {
+      const result = state.token ? true : false
+      return result
+    },
+    getUser(state) {
+      return state.user
+    },
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -59,6 +63,11 @@ export default new Vuex.Store({
     AUTH_USER(state, token) {
       state.token = token
     },
+    AUTH_LOGOUT(state) {
+      state.token = ''
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    },
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -68,13 +77,20 @@ export default new Vuex.Store({
     //   console.log(movieList, commit)
     //   // commit('FETCH_MOVIE_LIST', movieList)
     // },
+
     async FETCH_GENRE_LIST({ commit }) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
       const GENRE_LIST_URL = 'api/v1/movies/genres'
       const response = await axios.get(GENRE_LIST_URL)
       const genreList = response.data
       commit('FETCH_GENRE_LIST', genreList)
     },
     async FETCH_LANGUAGE_LIST({ commit }) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
       const LANGUAGE_LIST_URL = 'api/v1/movies/languages'
       const response = await axios.get(LANGUAGE_LIST_URL)
       const languageList = response.data
@@ -93,9 +109,14 @@ export default new Vuex.Store({
       commit('FETCH_MOVIE_LIST', movieList)
     },
     async CREATE_USER({ commit }, userInfo) {
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          }
+      }
       const USER_CREATE_URL = '/api/v1/accounts/signup/'
       const data = userInfo
-      const response = await axios.post(USER_CREATE_URL, data)
+      const response = await axios.post(USER_CREATE_URL, data, config)
       commit('CREATE_USER', response.data)
     },
     // async AUTH_USER({ commit }, userInfo) {
@@ -120,10 +141,18 @@ export default new Vuex.Store({
             
             localStorage.setItem('token', token)
             commit('AUTH_USER', token)
+            
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            axios.get('api/v1/accounts/userinfo')
+              .then((res) => {
+                localStorage.setItem('user', res.data.username)
+                localStorage.setItem('image', res.data.image)
+                
+              })
             resolve()
           })
       })
-    }
+    },
   },
   modules: {
 
