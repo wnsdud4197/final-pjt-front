@@ -5,6 +5,7 @@ import SignupView from '@/pages/SignupView'
 import LoginView from '@/pages/LoginView'
 import MovieView from '@/pages/MovieView'
 import CommunityView from '@/pages/CommunityView'
+import ProfileView from '@/pages/ProfileView'
 
 Vue.use(VueRouter)
 
@@ -33,8 +34,12 @@ const routes = [
     path: '/community',
     name: 'community',
     component: CommunityView,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView,
   }
-  
 ]
 
 const router = new VueRouter({

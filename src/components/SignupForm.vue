@@ -50,11 +50,6 @@ export default {
       form.append('password', this.userInfo.password)
       form.append('password_confirmation', this.userInfo.password_confirmation)
     
-      // { header: { 'Content-Type': 'multipart/form-data' }}
-      // const userInfo = new FormData()
-      // userInfo.append('form', this.form)
-      // userInfo.append('others', this.others)
-      // this.$store.dispatch('CREATE_USER', this.userInfo)
       this.$store.dispatch('CREATE_USER', form)
       .then(() => {
         this.$router.push('/')
