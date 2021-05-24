@@ -17,6 +17,7 @@ export default new Vuex.Store({
     showModal: false,
     token: localStorage.getItem('token'),
     movieRandom: [],
+    labels: [],
   },
   getters: {
     getGenreList(state) {
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     getMovieRandom(state) {
       return state.movieRandom
     },
+    getLabels(state) {
+      return state.labels
+    }
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -75,6 +79,9 @@ export default new Vuex.Store({
     FETCH_MOIVE_RANDOM(state, movieRandom) {
       state.movieRandom = movieRandom
     },
+    FETCH_IMAGE_ANALYZE(state, labels) {
+      state.labels = labels
+    }
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -168,6 +175,18 @@ export default new Vuex.Store({
       const response = await axios.get(MOVIE_RANDOM_URL)
       const movieRandom = response.data
       commit('FETCH_MOIVE_RANDOM', movieRandom)
+    },
+    async FETCH_IMAGE_ANALYZE({ commit }, image) {
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          }
+      }
+      const USER_CREATE_URL = '/api/v1/movies/image/'
+      const data = image
+      const response = await axios.post(USER_CREATE_URL, data, config)
+      
+      commit('FETCH_IMAGE_ANALYZE', response.data)
     },
   },
   modules: {
