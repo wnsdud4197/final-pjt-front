@@ -16,6 +16,7 @@ export default new Vuex.Store({
     modalMovie: [],
     showModal: false,
     token: localStorage.getItem('token'),
+    movieRandom: [],
   },
   getters: {
     getGenreList(state) {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     getUser(state) {
       return state.user
+    },
+    getMovieRandom(state) {
+      return state.movieRandom
     },
   },
   mutations: {
@@ -67,6 +71,9 @@ export default new Vuex.Store({
       state.token = ''
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+    },
+    FETCH_MOIVE_RANDOM(state, movieRandom) {
+      state.movieRandom = movieRandom
     },
   },
   actions: {
@@ -152,6 +159,15 @@ export default new Vuex.Store({
             resolve()
           })
       })
+    },
+    async FETCH_MOIVE_RANDOM({ commit }) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+      const MOVIE_RANDOM_URL = 'api/v1/movies/movierandom/'
+      const response = await axios.get(MOVIE_RANDOM_URL)
+      const movieRandom = response.data
+      commit('FETCH_MOIVE_RANDOM', movieRandom)
     },
   },
   modules: {

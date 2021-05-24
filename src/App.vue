@@ -10,7 +10,8 @@
         <router-link to="/">Home</router-link> |
         <router-link to="" @click.native="logout">Logout</router-link> |
         <router-link to="/movie">Movie</router-link> |
-        <router-link to="/community">community</router-link> |
+        <router-link to="/recommend">Recommend</router-link> |
+        <router-link to="/community">Community</router-link> |
         <router-link to="/profile" class="profile">
           <img :src="profile" alt="" class="profileimage border border-3 rounded-circle">
         </router-link>
