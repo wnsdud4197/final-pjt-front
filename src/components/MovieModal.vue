@@ -2,41 +2,89 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container">
+        <div class="modal-container" style="background-color: #484545; color: #d3d3d3;">
 
-          <button class="modal-default-button" @click="$emit('close')">
-            Close
+          <button class="modal-default-button btn btn-white" @click="$emit('close')">
+            <i class="far fa-times-circle fa-2x icon"></i>
           </button>
 
-          <div class="modal-body">
-            <slot name="body">
+          <div class="modal-body m-1 px-0">
+            <slot name="body">              
               <div class="d-flex">
-                <img src="@/assets/keep.png" alt="">
-                <img :src="poster_path" class="card-img-top" alt="...">      
-                <div>
-                  <h3>
-                    줄거리
-                  </h3>
-                  <p>
+                <div class="justify-content-center align-items-center">
+                  <!-- 좋아요 -->
+                  <div>
+                    <button class="btn btn-white">
+                      <i class="far fa-heart fa-2x icon"></i>
+                    </button>
+                    <button class="btn btn-white" style="display: none;">
+                      <i class="fas fa-heart fa-2x" style="color: salmon;"></i>
+                    </button>
+                  </div>                  
+                  <!-- 찜 -->
+                  <div>
+                    <button class="btn btn-white">
+                      <img src="@/assets/unkeep.png" style="width: 2.8rem;">
+                    </button> 
+                    <button class="btn btn-white" style="display: none;">
+                      <img src="@/assets/keep.png" style="width: 2.8rem;">
+                    </button> 
+                  </div>
+                  
+                  <!-- 리뷰 -->
+                  <div>
+                    <button class="btn btn-white">
+                      <i class="fas fa-pencil-alt fa-2x icon"></i>
+                    </button> 
+                  </div>                                                      
+                </div>                
+                <img :src="poster_path" class="card-img-top" style="width: 11rem; margin: 0 10px;"> 
+
+                <div class="mx-3">
+                  <div class="box d-flex align-items-center mt-0 mb-3" style="height: 4rem;">
+                    <h3 class="fw-bold">
+                      {{ MovieModal.title }}
+                    </h3>
+                  </div>
+                  
+                  <div class="box d-flex align-items-center">
+                    <h5>개봉일 | {{ MovieModal.release_date }}</h5>
+                  </div>
+                  <div class="box d-flex align-items-center">
+                    <h5>평점 : {{ MovieModal.vote_average }}</h5>
+                  </div>
+                  <div class="box d-flex align-items-center">
+                    <h5>언어 {{ MovieModal.language }}</h5>
+                  </div>              
+
+                  <!-- <p>
                     {{ MovieModal.overview }}
-                  </p>
+                  </p> -->
+                </div>
+              </div>
+              
+              <div class="d-flex">
+                <div class="video-container">
+                  <iframe  frame :src="videoUrl" frameborder="0"></iframe>
+                </div>
+                <div>
+                  <div class="box d-flex align-items-center mt-0" style="height: 150px; margin-left: 2.3rem;">
+                    <p style="margin: 0 1rem;">{{ MovieModal.overview }}</p>
+                  </div> 
                 </div>
               </div>
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <slot name="footer">
               <div class="d-flex">
-                <div>
-                  <h3>평점</h3>
-                </div>
                 <div class="video-container">
                   <iframe  frame :src="videoUrl" frameborder="0"></iframe>
                 </div>
               </div>
             </slot>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -88,7 +136,8 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+  /* font-family: Helvetica, Arial, sans-serif; */
+  font-family: 'Hi Melody', cursive;
 }
 
 .modal-header h3 {
@@ -130,6 +179,23 @@ export default {
 img {
   width: 20%;
   height: 20%;
+}
+
+.icon {
+  color: #d3d3d3;
+}
+
+.box {
+  background-color: #BB86FC;
+  color: #121212;
+  width: 45rem;
+  height: 2.5rem;
+  margin: 1.3rem 3.3rem;
+}
+
+h3, h5 {
+  margin: 0 1rem;
+  font-weight: bold;
 }
 </style>
 
