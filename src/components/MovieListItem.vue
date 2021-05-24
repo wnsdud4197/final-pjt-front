@@ -1,7 +1,8 @@
 <template>
   <div class="col m-3">
     <div class="card" style="width: 18rem;" @click="onClick(movie)">
-      <img :src="poster_path" class="card-img-top" alt="...">
+      <img v-if="movie.poster_path" :src="poster_path" class="card-img-top" alt="...">
+      <img v-else src="@/assets/zzanggu.png" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">{{ movie.title }}</p>
       </div>

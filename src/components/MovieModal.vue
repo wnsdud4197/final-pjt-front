@@ -4,33 +4,28 @@
       <div class="modal-wrapper">
         <div class="modal-container" style="background-color: #484545; color: #d3d3d3;">
 
-          <button class="modal-default-button btn btn-white" @click="$emit('close')">
-            <i class="far fa-times-circle fa-2x icon"></i>
-          </button>
-
-          <div class="modal-body m-1 px-0">
+          <div class="modal-body m-0">
             <slot name="body">              
-              <div class="d-flex">
+              <div class="d-flex me-0 pe-0">
                 <div class="justify-content-center align-items-center">
                   <!-- 좋아요 -->
-                  <div>
-                    <button class="btn btn-white">
-                      <i class="far fa-heart fa-2x icon"></i>
-                    </button>
-                    <button class="btn btn-white" style="display: none;">
+                  <div @click="onClickLike(MovieModal)">
+                    <button v-if="like === true" class="btn btn-white">
                       <i class="fas fa-heart fa-2x" style="color: salmon;"></i>
                     </button>
+                    <button v-else class="btn btn-white">
+                      <i class="far fa-heart fa-2x icon"></i>
+                    </button>                    
                   </div>                  
                   <!-- 찜 -->
-                  <div>
+                  <div @click="onClickKeep()">
                     <button class="btn btn-white">
                       <img src="@/assets/unkeep.png" style="width: 2.8rem;">
                     </button> 
                     <button class="btn btn-white" style="display: none;">
                       <img src="@/assets/keep.png" style="width: 2.8rem;">
                     </button> 
-                  </div>
-                  
+                  </div>                  
                   <!-- 리뷰 -->
                   <div>
                     <button class="btn btn-white">
@@ -38,7 +33,8 @@
                     </button> 
                   </div>                                                      
                 </div>                
-                <img :src="poster_path" class="card-img-top" style="width: 11rem; margin: 0 10px;"> 
+                <img v-if="MovieModal.poster_path" :src="poster_path" class="card-img-top" style="width: 11rem; margin: 0 10px;">
+                <img v-else src="@/assets/zzanggu.png" class="card-img-top" style="width: 11rem; margin: 0 10px;"> 
 
                 <div class="mx-3">
                   <div class="box d-flex align-items-center mt-0 mb-3" style="height: 4rem;">
@@ -47,44 +43,42 @@
                     </h3>
                   </div>
                   
-                  <div class="box d-flex align-items-center">
-                    <h5>개봉일 | {{ MovieModal.release_date }}</h5>
-                  </div>
-                  <div class="box d-flex align-items-center">
-                    <h5>평점 : {{ MovieModal.vote_average }}</h5>
-                  </div>
-                  <div class="box d-flex align-items-center">
-                    <h5>언어 {{ MovieModal.language }}</h5>
-                  </div>              
-
-                  <!-- <p>
-                    {{ MovieModal.overview }}
-                  </p> -->
+                  <div class="box d-flex align-items-center" style="height: 10rem;">
+                    <div>
+                      <h4>개봉일 | {{ $moment(MovieModal.release_date).format("YYYY년 MM월 DD일") }}</h4>
+                      <h4>평점 | {{ MovieModal.vote_average }}</h4>
+                      <h4>언어 | {{ MovieModal.language }}</h4>  
+                    </div>                                   
+                  </div>            
+                </div>
+                <div>
+                  <button class="modal-default-button btn btn-white" @click="$emit('close')">
+                    <i class="far fa-times-circle fa-2x icon"></i>
+                  </button>
                 </div>
               </div>
               
-              <div class="d-flex">
+              <div class="d-flex mt-3">
                 <div class="video-container">
-                  <iframe  frame :src="videoUrl" frameborder="0"></iframe>
+                  <iframe frame :src="videoUrl" frameborder="0"></iframe>
                 </div>
                 <div>
-                  <div class="box d-flex align-items-center mt-0" style="height: 150px; margin-left: 2.3rem;">
-                    <p style="margin: 0 1rem;">{{ MovieModal.overview }}</p>
-                  </div> 
+                  <div v-if="MovieModal.overview" class="box d-flex align-items-center mt-0" style="height: 150px; margin-left: 2.3rem;">
+                    <div class="m-2" style="overflow: auto; height: 150px;">
+                      <h5 class="fw-bold mb-0">줄거리 :</h5>
+                      <h5 class="mt-2">{{ MovieModal.overview }}</h5>
+                    </div>                
+                  </div>
+                  <div v-else class="box d-flex align-items-center justify-content-center mt-0" style="height: 150px; margin-left: 2.3rem;">
+                    <div class="m-2">
+                      <h4 class="fw-bold">줄거리가 없습니다 😭</h4>
+                    </div>                
+                  </div>  
                 </div>
               </div>
             </slot>
           </div>
 
-          <!-- <div class="modal-footer">
-            <slot name="footer">
-              <div class="d-flex">
-                <div class="video-container">
-                  <iframe  frame :src="videoUrl" frameborder="0"></iframe>
-                </div>
-              </div>
-            </slot>
-          </div> -->
         </div>
       </div>
     </div>
@@ -94,6 +88,20 @@
 <script>
 export default {
   name: 'MovieModal',
+  data() {
+    return {
+      like: false,
+    }
+  },
+  methods: {
+    onClickLike(movieModal) {
+      this.$store.dispatch('MOVIE_LIKE', movieModal)
+      .then(() => {
+        this.like = this.$store.getters.getLike.check
+        console.log(this.like)
+      })
+    },
+  },
   computed: {
     MovieModal() {
       return this.$store.getters.getModalMovie
@@ -187,15 +195,21 @@ img {
 
 .box {
   background-color: #BB86FC;
+  border-radius: 7px;
   color: #121212;
   width: 45rem;
   height: 2.5rem;
-  margin: 1.3rem 3.3rem;
+  margin: 1.3rem 0 1.3rem 3.3rem;
 }
 
-h3, h5 {
+h3, h4 {
   margin: 0 1rem;
   font-weight: bold;
+}
+
+h4, h5 {
+  margin: 1rem;
+  text-align: left;
 }
 </style>
 
