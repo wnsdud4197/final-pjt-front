@@ -19,6 +19,7 @@ export default new Vuex.Store({
     movieRandom: [],
     labels: [],
     labelMovies: [],
+    like: [],
   },
   getters: {
     getGenreList(state) {
@@ -51,7 +52,10 @@ export default new Vuex.Store({
     },
     getLabelMovies(state) {
       return state.labelMovies
-    }
+    },
+    getLike(state) {
+      return state.like
+    },
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -89,7 +93,10 @@ export default new Vuex.Store({
     },
     FETCH_VISION_MOVIE_LIST(state, labelMovies) {
       state.labelMovies = labelMovies
-    }
+    },
+    MOVIE_LIKE(state, like) {
+      state.like = like
+    },
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -200,7 +207,16 @@ export default new Vuex.Store({
       const data = labels
       const response = await axios.post(IMAGE_MOVIE_URL, data)
       commit('FETCH_VISION_MOVIE_LIST', response.data)
-    }
+    },
+    async MOVIE_LIKE({ commit }, movieModal) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+      const MOVIE_LIKE_URL = `/api/v1/movies/like/`
+      const data = movieModal
+      const response = await axios.post(MOVIE_LIKE_URL, data)
+      commit('MOVIE_LIKE', response.data)
+    },
   },
   modules: {
 
