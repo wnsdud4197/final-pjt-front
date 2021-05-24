@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="my-3">
-      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div>
+      <div class="btn-group my-3" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
           @click="onClickCategory()"
         >

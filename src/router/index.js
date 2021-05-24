@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import SignupView from '@/pages/SignupView'
 import LoginView from '@/pages/LoginView'
 import MovieView from '@/pages/MovieView'
+import RecommendView from '@/pages/RecommendView'
 import CommunityView from '@/pages/CommunityView'
 import ProfileView from '@/pages/ProfileView'
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/movie',
     name: 'movie',
     component: MovieView,
+  },
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: RecommendView,
   },
   {
     path: '/community',
