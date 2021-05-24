@@ -18,6 +18,7 @@ export default new Vuex.Store({
     token: localStorage.getItem('token'),
     movieRandom: [],
     labels: [],
+    labelMovies: [],
   },
   getters: {
     getGenreList(state) {
@@ -47,6 +48,9 @@ export default new Vuex.Store({
     },
     getLabels(state) {
       return state.labels
+    },
+    getLabelMovies(state) {
+      return state.labelMovies
     }
   },
   mutations: {
@@ -75,12 +79,16 @@ export default new Vuex.Store({
       state.token = ''
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      localStorage.removeItem('image')
     },
     FETCH_MOIVE_RANDOM(state, movieRandom) {
       state.movieRandom = movieRandom
     },
     FETCH_IMAGE_ANALYZE(state, labels) {
       state.labels = labels
+    },
+    FETCH_VISION_MOVIE_LIST(state, labelMovies) {
+      state.labelMovies = labelMovies
     }
   },
   actions: {
@@ -161,7 +169,6 @@ export default new Vuex.Store({
               .then((res) => {
                 localStorage.setItem('user', res.data.username)
                 localStorage.setItem('image', res.data.image)
-                
               })
             resolve()
           })
@@ -182,12 +189,18 @@ export default new Vuex.Store({
           'Content-Type': 'multipart/form-data',
           }
       }
-      const USER_CREATE_URL = '/api/v1/movies/image/'
+      const IMAGE_ANALUZE_URL = '/api/v1/movies/image/'
       const data = image
-      const response = await axios.post(USER_CREATE_URL, data, config)
+      const response = await axios.post(IMAGE_ANALUZE_URL, data, config)
       
       commit('FETCH_IMAGE_ANALYZE', response.data)
     },
+    async FETCH_MOVIE_IMAGE_ANALYZE({ commit }, labels) {
+      const IMAGE_MOVIE_URL = '/api/v1/movies/labels/'
+      const data = labels
+      const response = await axios.post(IMAGE_MOVIE_URL, data)
+      commit('FETCH_VISION_MOVIE_LIST', response.data)
+    }
   },
   modules: {
 

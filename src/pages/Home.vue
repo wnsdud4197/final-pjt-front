@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
- @import url('https://fonts.googleapis.com/css?family=Lobster+Two');
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two');
 
 h1 {
 	font-family: 'Lobster Two', cursive;
