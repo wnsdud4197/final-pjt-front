@@ -21,6 +21,9 @@ export default new Vuex.Store({
     labelMovies: [],
     like: [],
     keep: [],
+    userKeepLike: [],
+    keep_check: false,
+    like_check: false
   },
   getters: {
     getGenreList(state) {
@@ -59,6 +62,15 @@ export default new Vuex.Store({
     },
     getKeep(state) {
       return state.keep
+    },
+    getUserKeepLike(state) {
+      return state.userKeepLike
+    },
+    getKeepCheck(state) {
+      return state.keep_check
+    },
+    getLikeCheck(state) {
+      return state.like_check
     },
   },
   mutations: {
@@ -99,10 +111,17 @@ export default new Vuex.Store({
       state.labelMovies = labelMovies
     },
     MOVIE_LIKE(state, like) {
-      state.like = like
+      state.like_check = like.check_like
     },
     MOVIE_KEEP(state, keep) {
-      state.keep = keep
+      state.keep_check = keep.check_keep
+    },
+    USER_KEEP_LIKE(state, user) {
+      state.userKeepLike = user
+    },
+    MOVIE_CHECK(state, check) {
+      state.keep_check = check.keep_check
+      state.like_check = check.like_check
     },
   },
   actions: {
@@ -222,10 +241,24 @@ export default new Vuex.Store({
       commit('MOVIE_LIKE', response.data)
     },
     async MOVIE_KEEP({ commit }, movieModal) {
-      const MOVIE_KEEP_URL = 'api/v1/movies/keep/'
+      const MOVIE_KEEP_URL = '/api/v1/movies/keep/'
       const data = movieModal
       const response = await axios.post(MOVIE_KEEP_URL, data)
       commit('MOVIE_KEEP', response.data)
+    },
+    async USER_KEEP_LIKE({ commit }) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+      const USER_KEEP_LIKE_URL = '/api/v1/accounts/user/keep_like/'
+      const response = await axios.get(USER_KEEP_LIKE_URL)
+      commit('USER_KEEP_LIKE', response.data)
+    },
+    async MOVIE_CHECK({ commit }, movie) {
+      const MOVIE_CHECK_URL = '/api/v1/accounts/movie_check/'
+      const data = movie
+      const response = await axios.post(MOVIE_CHECK_URL, data)
+      commit('MOVIE_CHECK', response.data)
     },
   },
   modules: {

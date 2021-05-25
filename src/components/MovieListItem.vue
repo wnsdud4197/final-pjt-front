@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     async onClick(movie) {
+      this.$store.dispatch('MOVIE_CHECK', movie)
       this.$store.commit('UPDATE_MODAL_MOVIE', movie)
       this.$store.commit('SHOW_MODAL')
     }
