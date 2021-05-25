@@ -18,11 +18,11 @@
                     </button>                    
                   </div>                  
                   <!-- 찜 -->
-                  <div @click="onClickKeep()">
-                    <button class="btn btn-white">
+                  <div @click="onClickKeep(MovieModal)">
+                    <button v-if="keep === false" class="btn btn-white">
                       <img src="@/assets/unkeep.png" style="width: 2.8rem;">
                     </button> 
-                    <button class="btn btn-white" style="display: none;">
+                    <button v-else class="btn btn-white">
                       <img src="@/assets/keep.png" style="width: 2.8rem;">
                     </button> 
                   </div>                  
@@ -91,14 +91,20 @@ export default {
   data() {
     return {
       like: false,
+      keep: false,
     }
   },
   methods: {
     onClickLike(movieModal) {
       this.$store.dispatch('MOVIE_LIKE', movieModal)
       .then(() => {
-        this.like = this.$store.getters.getLike.check
-        console.log(this.like)
+        this.like = this.$store.getters.getLike.check_like
+      })
+    },
+    onClickKeep(movieModal) {
+      this.$store.dispatch('MOVIE_KEEP', movieModal)
+      .then(() => {
+        this.keep = this.$store.getters.getKeep.check_keep
       })
     },
   },
