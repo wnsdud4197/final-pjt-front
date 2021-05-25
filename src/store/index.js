@@ -279,9 +279,8 @@ export default new Vuex.Store({
       commit('FETCH_COMMUNITY_LIST', response.data)
     },
     async SEARCH_MOVIE({ commit }, userInput) {
-      const SEARCH_MOVIE_URL = 'api/v1/movies'
-      const data = userInput
-      const response = await axios.post(SEARCH_MOVIE_URL, data)
+      const SEARCH_MOVIE_URL = `api/v1/movies/search?word=${userInput}`
+      const response = await axios.get(SEARCH_MOVIE_URL)
       commit('SEARCH_MOVIE', response.data)
     },
     async USER_KEEP_LIKE({ commit }) {
