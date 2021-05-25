@@ -47,7 +47,7 @@
                     <div>
                       <h4>개봉일 | {{ $moment(MovieModal.release_date).format("YYYY년 MM월 DD일") }}</h4>
                       <h4>평점 | {{ MovieModal.vote_average }}</h4>
-                      <h4>언어 | {{ MovieModal.language }}</h4>  
+                      <h4>언어 | {{ MovieModal.language.name }}</h4>  
                     </div>                                   
                   </div>            
                 </div>
@@ -88,27 +88,21 @@
 <script>
 export default {
   name: 'MovieModal',
-  data() {
-    return {
-      like: false,
-      keep: false,
-    }
-  },
   methods: {
     onClickLike(movieModal) {
       this.$store.dispatch('MOVIE_LIKE', movieModal)
-      .then(() => {
-        this.like = this.$store.getters.getLike.check_like
-      })
     },
     onClickKeep(movieModal) {
       this.$store.dispatch('MOVIE_KEEP', movieModal)
-      .then(() => {
-        this.keep = this.$store.getters.getKeep.check_keep
-      })
     },
   },
   computed: {
+    like() {
+      return this.$store.getters.getLikeCheck
+    },
+    keep() {
+      return this.$store.getters.getKeepCheck
+    },
     MovieModal() {
       return this.$store.getters.getModalMovie
     },
