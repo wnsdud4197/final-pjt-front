@@ -35,9 +35,10 @@ export default {
   methods: {
     onClick() {
       this.$store.dispatch('CREATE_ARTICLE', this.article)
-        .then(
+        .then(() => {
           this.$router.push('/detail')
-        )
+        }
+      )
     }
   }
 }

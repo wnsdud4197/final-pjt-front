@@ -4,7 +4,7 @@
       <img src="@/assets/background.jpg" class="card-img" alt="...">
       <div class="card-img-overlay d-flex align-items-center justify-content-center">
         <button class="btn btn-white" @click="onClick()">
-          <img src="@/assets/random.png" style="width: 80%;">
+          <img src="@/assets/random.png" style="width: 80%; height: auto;">
         </button>
       </div>
     </div>

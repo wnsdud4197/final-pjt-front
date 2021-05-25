@@ -25,6 +25,7 @@ export default new Vuex.Store({
     userKeepLike: [],
     keep_check: false,
     like_check: false,
+    articleMovie: [],
   },
   getters: {
     getGenreList(state) {
@@ -65,7 +66,7 @@ export default new Vuex.Store({
       return state.keep
     },
     getCommunityList(state) {
-      return state.getCommunityList
+      return state.communityList
     },
     getSearchMovieList(state) {
       return state.searchMovieList
@@ -81,6 +82,9 @@ export default new Vuex.Store({
     },
     getLikeCheck(state) {
       return state.like_check
+    },
+    getArticleMovie(state) {
+      return state.articleMovie
     },
   },
   mutations: {
@@ -143,7 +147,7 @@ export default new Vuex.Store({
       state.article = article
     },
     ARTICLE_MOVIE(state, article) {
-      state.article = article
+      state.articleMovie = article
     },
   },
   actions: {
@@ -304,6 +308,18 @@ export default new Vuex.Store({
       const data = movieInfo
       const response = await axios.post(ARTICLE_MOVIE_URL, data)
       commit('ARTICLE_MOVIE', response.data)
+    },
+    async DELETE_ARTICLE({ commit }, article) {
+      const articleId = article.id
+      const DELETE_ARTICLE_URL = `/api/v1/community/${articleId}/`
+      await axios.delete(DELETE_ARTICLE_URL)
+      commit('DELETE_ARTICLE', article)
+    },
+    async UPDATE_ARTICLE({ commit }, article) {
+      const articleId = article.id
+      const UPDATE_ARTICLE_URL = `/api/v1/community/${articleId}/`
+      await axios.put(UPDATE_ARTICLE_URL)
+      commit('UPDATE_ARTICLE', article)
     },
   },
   modules: {

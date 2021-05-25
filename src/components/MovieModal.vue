@@ -107,7 +107,8 @@ export default {
     onClickArticle(movieModal) {
       this.$store.dispatch('ARTICLE_MOVIE', movieModal)
       .then(() => {
-        // const articles = this.$store.getters.getArticle // 게시글 전체
+        // const articles = this.$store.getters.getArticleMovie // 게시글 전체
+        // console.log(articles)
         this.$router.push('/community')
       })     
     },
