@@ -19,14 +19,12 @@ export default new Vuex.Store({
     movieRandom: [],
     labels: [],
     labelMovies: [],
-    like: [],
-    keep: [],
     communityList: [],
     searchMovieList: [],
     article: null,
     userKeepLike: [],
     keep_check: false,
-    like_check: false
+    like_check: false,
   },
   getters: {
     getGenreList(state) {
@@ -143,7 +141,10 @@ export default new Vuex.Store({
     },
     CREATE_ARTICLE(state, article) {
       state.article = article
-    }
+    },
+    ARTICLE_MOVIE(state, article) {
+      state.article = article
+    },
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -297,6 +298,12 @@ export default new Vuex.Store({
       const data = movie
       const response = await axios.post(MOVIE_CHECK_URL, data)
       commit('MOVIE_CHECK', response.data)
+    },
+    async ARTICLE_MOVIE({ commit }, movieInfo) {
+      const ARTICLE_MOVIE_URL = '/api/v1/community/detail/'
+      const data = movieInfo
+      const response = await axios.post(ARTICLE_MOVIE_URL, data)
+      commit('ARTICLE_MOVIE', response.data)
     },
   },
   modules: {
