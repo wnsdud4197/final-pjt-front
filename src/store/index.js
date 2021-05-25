@@ -21,6 +21,9 @@ export default new Vuex.Store({
     labelMovies: [],
     like: [],
     keep: [],
+    communityList: [],
+    searchMovieList: [],
+    article: null,
     userKeepLike: [],
     keep_check: false,
     like_check: false
@@ -62,6 +65,15 @@ export default new Vuex.Store({
     },
     getKeep(state) {
       return state.keep
+    },
+    getCommunityList(state) {
+      return state.getCommunityList
+    },
+    getSearchMovieList(state) {
+      return state.searchMovieList
+    },
+    getArticle(state) {
+      return state.article
     },
     getUserKeepLike(state) {
       return state.userKeepLike
@@ -123,6 +135,15 @@ export default new Vuex.Store({
       state.keep_check = check.keep_check
       state.like_check = check.like_check
     },
+    FETCH_COMMUNITY_LIST(state, communityList) {
+      state.communityList = communityList
+    },
+    SEARCH_MOVIE(state, searchMovieList) {
+      state.searchMovieList = searchMovieList
+    },
+    CREATE_ARTICLE(state, article) {
+      state.article = article
+    }
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -245,6 +266,23 @@ export default new Vuex.Store({
       const data = movieModal
       const response = await axios.post(MOVIE_KEEP_URL, data)
       commit('MOVIE_KEEP', response.data)
+    },
+    async CREATE_ARTICLE({ commit }, article) {
+      const CREATE_ARTICLE_URL = 'api/v1/community/'
+      const data = article
+      const response = await axios.post(CREATE_ARTICLE_URL, data)
+      commit('CREATE_ARTICLE', response.data)
+    },
+    async FETCH_COMMUNITY_LIST({ commit }) {
+      const COMMUNITY_LIST_URL = 'api/v1/community'
+      const response = await axios.get(COMMUNITY_LIST_URL)
+      commit('FETCH_COMMUNITY_LIST', response.data)
+    },
+    async SEARCH_MOVIE({ commit }, userInput) {
+      const SEARCH_MOVIE_URL = 'api/v1/movies'
+      const data = userInput
+      const response = await axios.post(SEARCH_MOVIE_URL, data)
+      commit('SEARCH_MOVIE', response.data)
     },
     async USER_KEEP_LIKE({ commit }) {
       const token = localStorage.getItem('token')
