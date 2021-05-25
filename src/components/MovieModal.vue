@@ -25,9 +25,15 @@
                     <button v-else class="btn btn-white">
                       <img src="@/assets/keep.png" style="width: 2.8rem;">
                     </button> 
+                  </div>
+                  <!--게시판  -->
+                  <div class="mb-2 mt-1" @click="onClickArticle(MovieModal)">
+                    <button class="btn btn-white">
+                      <i class="fas fa-clipboard-list fa-2x icon"></i>
+                    </button> 
                   </div>                  
-                  <!-- 리뷰 -->
-                  <div>
+                  <!-- 리뷰 작성 -->
+                  <div @click="onClickWrite()">
                     <button class="btn btn-white">
                       <i class="fas fa-pencil-alt fa-2x icon"></i>
                     </button> 
@@ -94,6 +100,16 @@ export default {
     },
     onClickKeep(movieModal) {
       this.$store.dispatch('MOVIE_KEEP', movieModal)
+    },
+    onClickWrite() {
+      this.$router.push('/create')
+    },
+    onClickArticle(movieModal) {
+      this.$store.dispatch('ARTICLE_MOVIE', movieModal)
+      .then(() => {
+        // const articles = this.$store.getters.getArticle // 게시글 전체
+        this.$router.push('/community')
+      })     
     },
   },
   computed: {
