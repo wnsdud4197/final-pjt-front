@@ -7,6 +7,8 @@ import MovieView from '@/pages/MovieView'
 import RecommendView from '@/pages/RecommendView'
 import CommunityView from '@/pages/CommunityView'
 import ProfileView from '@/pages/ProfileView'
+import CreatCommunityView from '@/pages/CreatCommunityView'
+import CommunityDetailView from '@/pages/CommunityDetailView'
 
 Vue.use(VueRouter)
 
@@ -45,7 +47,17 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: ProfileView,
-  }
+  },
+  {
+    path: '/create',
+    name: 'create',
+    component: CreatCommunityView,
+  },
+  {
+  path: '/detail',
+  name: 'detail',
+  component: CommunityDetailView,
+  },
 ]
 
 const router = new VueRouter({
