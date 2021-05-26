@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="mb-3 p-3 row">
-      <input v-model="comment.content" type="text" class="form-control m-2 col" id="review-title" placeholder="댓글 작성">
+    <div class="mt-3 ms-2 d-flex ">
+      <div class="comment-input">
+        <input v-model="comment.content" type="text" class="form-control m-2" id="review-title" placeholder="댓글 작성">
+      </div>
       <div class="col-3 d-flex justify-content-center align-items-center">
         <button class="btn btn-outline-light btn-sm" @click="onClick">댓글 작성</button>
       </div>
@@ -28,6 +30,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.comment-input {
+  width: 70%;
+}
 </style>

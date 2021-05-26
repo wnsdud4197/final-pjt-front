@@ -17,11 +17,11 @@
               <p class="mx-3">작성시간 : {{ $moment(article.created_at).format("YYYY년 MM월 DD일") }}</p> 
               <p class="mx-3">마지막 수정시간 : {{ $moment(article.updated_at).format("YYYY년 MM월 DD일") }}</p> 
             </div>
+            <div v-if="user === article.user.username" class="my-5">
+              <button class="mx-2 btn btn-light" @click="onClickUpdate()">수정</button>
+              <button class="mx-2 btn btn-light" @click="onClickDelete()">삭제</button>
+            </div>       
           </div> 
-          <div v-if="user === article.user.username" class="my-5">
-            <button class="mx-2 btn btn-light" @click="onClickUpdate()">수정</button>
-            <button class="mx-2 btn btn-light" @click="onClickDelete()">삭제</button>
-          </div>       
         </div>
         <div v-else>
           <div class="mb-3">
@@ -42,9 +42,8 @@
     </div>    
     <hr>
     <div class="container bg-secondary border rounded">
-      <p>댓글</p>
       <CommentForm/>
-      <ol class="list-group list-group-numbered my-3">
+      <ol class="list-group list-group-numbered p-3">
         <CommentList
           v-for="(comment, idx) in commentList"
           :key="idx"

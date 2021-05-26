@@ -13,7 +13,7 @@
 
       <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-medium">
         <div role="search" class="sbx-medium__wrapper">
-          <input type="search" name="search" placeholder="Search your website" autocomplete="off" required="required" class="sbx-medium__input" 
+          <input type="search" name="search" placeholder="Search your movie" autocomplete="off" required="required" class="sbx-medium__input" 
             @input="changed"
             v-model="value"
           >

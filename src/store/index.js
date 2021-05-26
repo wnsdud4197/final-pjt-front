@@ -30,6 +30,7 @@ export default new Vuex.Store({
     loginError: null,
     imageUrl: localStorage.getItem('image'),
     commentList: [],
+    searchWord: '',
   },
   getters: {
     getGenreList(state) {
@@ -316,6 +317,9 @@ export default new Vuex.Store({
       commit('MOVIE_KEEP', response.data)
     },
     async CREATE_ARTICLE({ commit }, article) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
       const CREATE_ARTICLE_URL = 'api/v1/community/'
       const data = article
       const response = await axios.post(CREATE_ARTICLE_URL, data)
