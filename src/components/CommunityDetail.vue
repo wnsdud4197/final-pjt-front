@@ -5,6 +5,7 @@
       <div class="mx-5">
         <img :src="poster_path" alt="...">
       </div>      
+      
       <div class="box mx-5">
         <div v-if="update">
           <div class="container bg-secondary border rounded mb-3">
@@ -17,7 +18,7 @@
               <p class="mx-3">마지막 수정시간 : {{ $moment(article.updated_at).format("YYYY년 MM월 DD일") }}</p> 
             </div>
           </div> 
-          <div class="my-5">
+          <div v-if="user === article.user.username" class="my-5">
             <button class="mx-2 btn btn-light" @click="onClickUpdate()">수정</button>
             <button class="mx-2 btn btn-light" @click="onClickDelete()">삭제</button>
           </div>       
@@ -43,11 +44,13 @@
     <div class="container bg-secondary border rounded">
       <p>댓글</p>
       <CommentForm/>
-      <CommentList
-        v-for="(comment, idx) in article.comment_set"
-        :key="idx"
-        :comment="comment"
-      />
+      <ol class="list-group list-group-numbered my-3">
+        <CommentList
+          v-for="(comment, idx) in commentList"
+          :key="idx"
+          :comment="comment"
+        />  
+      </ol>
     </div>
   </div>
 </template>
@@ -65,19 +68,13 @@ export default {
   data() {
     return {
       update: true,
-      newArticle: {
-        title: null,
-        content: null,
-      }
+      user: localStorage.getItem('user')
     }
   },
   methods: {
     onClickDelete() {
       this.$router.push('/community')
       this.$store.dispatch('DELETE_ARTICLE', this.article)
-      // .then(() => {
-      //   this.$router.push('/community')
-      // })
     },
     onClickUpdate() {
       this.update = false
@@ -97,6 +94,9 @@ export default {
     poster_path() {
       return `https://image.tmdb.org/t/p/w500/${this.article.movie.poster_path}`
     },
+    commentList() {
+      return this.$store.getters.getCommentList
+    }
   },
   created() {
     if (!this.$store.getters.getArticle) {

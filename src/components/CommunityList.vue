@@ -8,7 +8,7 @@
       >
         <div class="d-flex justify-content-evenly mx-5">
           <div>{{ community.title }}</div>
-          <div>⌚ {{ $moment(community.created_at).format("YYYY년 MM월 DD일 HH : MM") }}</div>
+          <div>⌚ {{ $moment(community.created_at).format("YYYY년 MM월 DD일 hh : mm") }}</div>
         </div>        
       </li>
     </ul>

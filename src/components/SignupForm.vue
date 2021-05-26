@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="d-flex justify-content-center">
       <div v-if="signupError" class="alert alert-warning error" role="alert" style="width: 40%;">
         <i class="fas fa-exclamation-triangle"></i> 
