@@ -102,6 +102,7 @@ export default {
       this.$store.dispatch('MOVIE_KEEP', movieModal)
     },
     onClickWrite() {
+      this.$store.commit('MODAL_TO_COMMUNITY')
       this.$router.push('/create')
     },
     onClickArticle(movieModal) {

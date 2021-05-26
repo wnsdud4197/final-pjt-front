@@ -22,6 +22,7 @@ export default {
   methods: {
     onClick() {
       this.$store.dispatch('CREATE_COMMENT', this.comment)
+      this.comment.content = ''
     }
   }
 }
