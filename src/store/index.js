@@ -28,7 +28,7 @@ export default new Vuex.Store({
     articleMovie: [],
     updatearticle: null,
     loginError: null,
-    imageUrl: '',
+    imageUrl: localStorage.getItem('image'),
   },
   getters: {
     getGenreList(state) {
@@ -123,6 +123,7 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       localStorage.removeItem('image')
+      state.imageUrl = ''
     },
     FETCH_MOIVE_RANDOM(state, movieRandom) {
       state.movieRandom = movieRandom

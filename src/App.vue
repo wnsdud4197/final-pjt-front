@@ -26,7 +26,7 @@ export default {
   name: 'App',
   data() {
     return {
-      imageURL: this.$store.getters.getImageUrl,
+      imageURL: '',
     }
   },
   computed: {
@@ -43,6 +43,9 @@ export default {
       this.$router.push('/login')
     }
   },
+  created() {
+    this.imageURL = localStorage.getItem('image')
+  }
 }
 </script>
 
