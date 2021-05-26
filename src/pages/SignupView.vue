@@ -21,10 +21,10 @@ export default {
 
 <style scoped>
 .background {
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   position: absolute;
-  top: 0;
+  top: 60px;
   bottom: 0;
   left: 0;
   right: 0;

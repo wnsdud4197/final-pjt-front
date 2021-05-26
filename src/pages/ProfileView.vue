@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>Profile</h1>
-    <div class="d-flex align-items-center">
-      <div>
-        <img :src="profilePicture" alt="">
+    <h1></h1>
+    <div class="d-flex align-items-center justify-content-center my-5">
+      <div class="mx-4">
+        <img v-if="profilePicture === 'http://localhost:8000null'" src="@/assets/profile.png" class="profileimage border border-3 rounded-circle">
+        <img v-else :src="profilePicture" style="height: 250px; width: 250px;" class="profileimage border border-3 rounded-circle">
       </div>
-      <div>
-        <h2>{{ loginUser }}</h2>
+      <div class="mx-4">
+        <h2><span style="font-size:40pt; color: #c490bf;" class="fw-bold">{{ loginUser }}</span>님 <i class="fas fa-user"></i></h2>
       </div>      
     </div>
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -16,7 +17,7 @@
       <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" @click="onLike(loginUser)">
       <label class="btn btn-outline-primary" for="btnradio2">좋아요한 영화</label>
     </div>
-    <div class="row">
+    <div class="row" style="background-color: #6fb03a;">
       <!-- use the modal component, pass in the prop -->
       <MovieModal v-if="showModal" @close="closeModal">
         <!--
