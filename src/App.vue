@@ -13,6 +13,28 @@ export default {
   components: {
     Navbar,
   },  
+  data() {
+    return {
+      imageURL: '',
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated
+    },
+    profile() {
+      return `http://localhost:8000${this.$store.getters.getImageUrl}`
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.commit('AUTH_LOGOUT')
+      this.$router.push('/login')
+    }
+  },
+  created() {
+    this.imageURL = localStorage.getItem('image')
+  }
 }
 </script>
 

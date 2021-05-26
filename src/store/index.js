@@ -13,7 +13,7 @@ export default new Vuex.Store({
     languageList: [],
     movieList: [],
     userInfo: {},
-    modalMovie: [],
+    modalMovie: null,
     showModal: false,
     token: localStorage.getItem('token'),
     movieRandom: [],
@@ -28,7 +28,8 @@ export default new Vuex.Store({
     articleMovie: [],
     updatearticle: null,
     loginError: null,
-    imageUrl: '',
+    imageUrl: localStorage.getItem('image'),
+    commentList: [],
   },
   getters: {
     getGenreList(state) {
@@ -94,6 +95,9 @@ export default new Vuex.Store({
     },
     getImageUrl(state) {
       return state.imageUrl
+    },
+    getCommentList(state) {
+      return state.commentList
     }
   },
   mutations: {
@@ -114,6 +118,12 @@ export default new Vuex.Store({
     },
     SHOW_MODAL(state) {
       state.showModal = !state.showModal
+      if (!state.showModal) {
+        state.modalMovie = null
+      }
+    },
+    MODAL_TO_COMMUNITY(state) {
+      state.showModal = !state.showModal
     },
     AUTH_USER(state, token) {
       state.token = token
@@ -123,6 +133,7 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       localStorage.removeItem('image')
+      state.imageUrl = ''
     },
     FETCH_MOIVE_RANDOM(state, movieRandom) {
       state.movieRandom = movieRandom
@@ -172,6 +183,9 @@ export default new Vuex.Store({
     },
     FETCH_IMAGE_URL(state, imageUrl) {
       state.imageUrl = imageUrl
+    },
+    FETCH_COMMENT_LIST(state, comments) {
+      state.commentList = comments
     }
   },
   actions: {
@@ -355,14 +369,26 @@ export default new Vuex.Store({
 
       const article_id = getters.getArticle.id
       const CREATE_COMMENT_URL = `/api/v1/community/${article_id}/comments/`
-      const response = await axios.post(CREATE_COMMENT_URL, comment)
-      console.log(response, commit)
+      await axios.post(CREATE_COMMENT_URL, comment)
+      const response = await axios.get(CREATE_COMMENT_URL)
+      commit('FETCH_COMMENT_LIST', response.data)
     },
     async FETCH_ARTICLE({ commit }, community) {
       const article_id = community.id
       const FETCH_ARTICLE_URL = `/api/v1/community/${article_id}/`
       const response = await axios.get(FETCH_ARTICLE_URL)
       commit('FETCH_ARTICLE', response.data)
+      const FETCH_COMMENT_URL = `/api/v1/community/${article_id}/comments/`
+      const nextResponse = await axios.get(FETCH_COMMENT_URL)
+      commit('FETCH_COMMENT_LIST', nextResponse.data)
+    },
+    async DELETE_COMMENT({ commit }, comment) {
+      const commentId = comment.id
+      const DELETE_COMMENT_URL = `/api/v1/community/comments/${commentId}/`
+      await axios.delete(DELETE_COMMENT_URL)
+      const FETCH_COMMENT_URL = `/api/v1/community/${comment.community}/comments/`
+      const nextResponse = await axios.get(FETCH_COMMENT_URL)
+      commit('FETCH_COMMENT_LIST', nextResponse.data)
     }
   },
   modules: {
