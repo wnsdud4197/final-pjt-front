@@ -33,7 +33,6 @@ export default {
       this.$store.dispatch('FETCH_ARTICLE', community)
         .then(() => {
           this.$router.push('/detail')
-
         })
     },
   },

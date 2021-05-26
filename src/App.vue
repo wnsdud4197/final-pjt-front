@@ -24,12 +24,17 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      imageURL: this.$store.getters.getImageUrl,
+    }
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated
     },
     profile() {
-      return `http://localhost:8000${localStorage.getItem('image')}`
+      return `http://localhost:8000${this.$store.getters.getImageUrl}`
     },
   },
   methods: {

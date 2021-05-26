@@ -28,6 +28,7 @@ export default new Vuex.Store({
     articleMovie: [],
     updatearticle: null,
     loginError: null,
+    imageUrl: '',
   },
   getters: {
     getGenreList(state) {
@@ -91,6 +92,9 @@ export default new Vuex.Store({
     getLoginError(state) {
       return state.loginError
     },
+    getImageUrl(state) {
+      return state.imageUrl
+    }
   },
   mutations: {
     FETCH_GENRE_LIST(state, genreList) {
@@ -166,6 +170,9 @@ export default new Vuex.Store({
     LOGIN_ERROR(state, loginError) {
       state.loginError = loginError
     },
+    FETCH_IMAGE_URL(state, imageUrl) {
+      state.imageUrl = imageUrl
+    }
   },
   actions: {
     // async FETCH_MOVIE_LIST({ commit }) {
@@ -245,6 +252,7 @@ export default new Vuex.Store({
               .then((res) => {
                 localStorage.setItem('user', res.data.username)
                 localStorage.setItem('image', res.data.image)
+                commit('FETCH_IMAGE_URL', res.data.image)
               })
             resolve()
           })
