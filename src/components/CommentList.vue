@@ -5,8 +5,8 @@
         <input v-model="updateComment.content" type="text" class="form-control m-2 col">
       </div>
       <div>
-        <button @click="onClickUpdate()" class="btn btn-success">수정</button>
-        <button @click="onClickBack()" class="btn btn-danger">취소</button>
+        <button @click="onClickUpdate()" class="btn btn-success m-1">수정</button>
+        <button @click="onClickBack()" class="btn btn-danger m-1">취소</button>
       </div>
     </li>
     <li v-else class="list-group-item d-flex justify-content-between align-items-start">
@@ -16,8 +16,8 @@
       </div>
       <div>
         <div v-if="user === comment.user.username">
-          <button @click="onClickUpdateMode()" class="btn btn-outline-success">수정</button>
-          <button @click="onDeleteClick(comment)" class="btn btn-outline-danger">삭제</button>
+          <button @click="onClickUpdateMode()" class="btn btn-outline-success m-1">수정</button>
+          <button @click="onDeleteClick(comment)" class="btn btn-outline-danger m-1">삭제</button>
         </div>
       </div>
     </li>

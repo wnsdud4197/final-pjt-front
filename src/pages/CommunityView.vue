@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <h1>커뮤니티</h1>
-    <div class="container">
-      <button @click="onClick">글작성</button>
-    </div>
+  <div class="my-3">
+    <button @click="onClick" class="btn btn-outline-primary">글작성</button>
     <CommunityList/>
   </div>
 </template>

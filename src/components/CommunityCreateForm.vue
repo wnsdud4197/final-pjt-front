@@ -15,15 +15,13 @@
     </div>
     <div v-if="this.article.movie" class="card">
       <div class="row g-0">
-        <div class="col-md-4">
-          <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg>
-          
+        <div class="col-4">
+          <img :src="tmdbImage + searchMovie.poster_path" height="500px">
         </div>
-        <div class="col-md-8">
+        <div class="col-8">
           <div class="card-body">
-            <h5 class="card-title">{{ this.article.movie.title }}</h5>
-            <p class="card-text">{{ this.article.movie.overview }}</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">{{ this.searchMovie.title }}</h5>
+            <p class="card-text">{{ this.searchMovie.overview }}</p>
           </div>
         </div>
       </div>
@@ -51,9 +49,10 @@ export default {
       article: {
         title: null,
         content: null,
-        // movie: this.$store.getters.getModalMovie.id,
+        movie: null,
       },
-
+      searchMovie: null,
+      tmdbImage: 'https://image.tmdb.org/t/p/w500/'
     }
   },
   components: {
@@ -61,7 +60,9 @@ export default {
   },
   methods: {
     onClick() {
-      this.$store.dispatch('CREATE_ARTICLE', this.article, this.movie)
+      const newArticle = this.article
+      
+      this.$store.dispatch('CREATE_ARTICLE', newArticle)
         .then(() => {
           this.$router.push('/detail')
         }
@@ -69,7 +70,8 @@ export default {
     },
     selectMovie(setMovie) {
       this.$store.commit('UPDATE_MODAL_MOVIE', setMovie)
-      this.article.movie = setMovie
+      this.article.movie = setMovie.id
+      this.searchMovie = setMovie
     }
   },
   computed: {

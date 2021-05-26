@@ -1,17 +1,27 @@
 <template>
-  <div>
-    <ul class="list-group">
-      <li class="list-group-item my-3"
-        v-for="(community, idx) in communityList"
-        :key="idx"
-        @click="onClick(community)"
-      >
-        <div class="d-flex justify-content-evenly mx-5">
-          <div>{{ community.title }}</div>
-          <div>⌚ {{ $moment(community.created_at).format("YYYY년 MM월 DD일 hh : mm") }}</div>
-        </div>        
-      </li>
-    </ul>
+  <div class="container my-3">
+    <table class="table bg-white">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">글 제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">작성시간</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(community, idx) in communityList"
+          :key="idx"
+          @click="onClick(community)"
+        >
+          <th scope="row">{{ community.id }}</th>
+          <td>{{ community.title }}</td>
+          <td>{{ community.user }}</td>
+          <td>⌚ {{ $moment(community.created_at).format("YYYY년 MM월 DD일 hh : mm") }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -40,12 +50,7 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  text-align: center;
-}
-li {
-  display: inline-block;
-  width: 75%;
+tbody {
   cursor: pointer;
 }
 </style>
