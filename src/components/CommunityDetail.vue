@@ -6,27 +6,48 @@
         <img :src="poster_path" alt="...">
       </div>      
       <div class="box mx-5">
-        <div class="container bg-secondary border rounded mb-3">
-          <h1 class="my-2">{{ article.title }}</h1>
-        </div>
-        <div class="container bg-secondary border rounded">
-          <h3 class="my-3">{{ article.content }}</h3>
-          <div class="d-flex">
-            <p class="mx-3">작성시간 : {{ $moment(article.created_at).format("YYYY년 MM월 DD일") }}</p> 
-            <p class="mx-3">마지막 수정시간 : {{ $moment(article.updated_at).format("YYYY년 MM월 DD일") }}</p> 
+        <div v-if="update">
+          <div class="container bg-secondary border rounded mb-3">
+            <h1 class="my-2">{{ article.title }}</h1>
           </div>
-        </div> 
-        <div class="my-5">
-          <button class="mx-2" @click="onClickUpdate()">수정</button>
-          <button class="mx-2" @click="onClickDelete()">삭제</button>
-        </div>       
+          <div class="container bg-secondary border rounded">
+            <h3 class="my-3">{{ article.content }}</h3>
+            <div class="d-flex">
+              <p class="mx-3">작성시간 : {{ $moment(article.created_at).format("YYYY년 MM월 DD일") }}</p> 
+              <p class="mx-3">마지막 수정시간 : {{ $moment(article.updated_at).format("YYYY년 MM월 DD일") }}</p> 
+            </div>
+          </div> 
+          <div class="my-5">
+            <button class="mx-2 btn btn-light" @click="onClickUpdate()">수정</button>
+            <button class="mx-2 btn btn-light" @click="onClickDelete()">삭제</button>
+          </div>       
+        </div>
+        <div v-else>
+          <div class="mb-3">
+            <label for="review-title" class="form-label">리뷰 제목</label>
+            <input v-model="article.title" type="text" class="form-control" id="review-title">
+          </div>
+          <div class="mb-3">
+            <label for="review-content" class="form-label">리뷰 내용</label>
+            <textarea v-model="article.content" class="form-control" id="review-content" rows="5">
+            </textarea>
+          </div>
+          <div>
+            <button class="mx-2 btn btn-light" @click="onClickUpdateServer()">수정</button>
+            <button class="mx-2 btn btn-light" @click="onClickBack()">취소</button>
+          </div>
+        </div>
       </div>      
     </div>    
     <hr>
     <div class="container bg-secondary border rounded">
       <p>댓글</p>
       <CommentForm/>
-      <CommentList/>
+      <CommentList
+        v-for="(comment, idx) in article.comment_set"
+        :key="idx"
+        :comment="comment"
+      />
     </div>
   </div>
 </template>
@@ -41,16 +62,33 @@ export default {
     CommentForm,
     CommentList,
   },
+  data() {
+    return {
+      update: true,
+      newArticle: {
+        title: null,
+        content: null,
+      }
+    }
+  },
   methods: {
     onClickDelete() {
+      this.$router.push('/community')
       this.$store.dispatch('DELETE_ARTICLE', this.article)
-      .then(() => {
-        this.$router.push('/community')
-      })
+      // .then(() => {
+      //   this.$router.push('/community')
+      // })
     },
     onClickUpdate() {
-      this.$store.dispatch('UPDATE_ARTICLE', this.article)
+      this.update = false
     },
+    onClickBack() {
+      this.update = true
+    },
+    onClickUpdateServer() {
+      this.$store.dispatch('UPDATE_ARTICLE', this.article)
+      this.update = true
+    }
   },
   computed: {
     article() {
@@ -59,11 +97,16 @@ export default {
     poster_path() {
       return `https://image.tmdb.org/t/p/w500/${this.article.movie.poster_path}`
     },
+  },
+  created() {
+    if (!this.$store.getters.getArticle) {
+      this.$router.push('/')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 p {
   margin-left: 0;
   margin-right: 0;

@@ -26,6 +26,7 @@ export default new Vuex.Store({
     keep_check: false,
     like_check: false,
     articleMovie: [],
+    updatearticle: null,
     loginError: null,
   },
   getters: {
@@ -142,7 +143,7 @@ export default new Vuex.Store({
       state.like_check = check.like_check
     },
     FETCH_COMMUNITY_LIST(state, communityList) {
-      state.communityList = communityList
+      state.articleMovie = communityList
     },
     SEARCH_MOVIE(state, searchMovieList) {
       state.searchMovieList = searchMovieList
@@ -152,6 +153,15 @@ export default new Vuex.Store({
     },
     ARTICLE_MOVIE(state, article) {
       state.articleMovie = article
+    },
+    DELETE_ARTICLE(state) {
+      state.article = []
+    },
+    UPDATE_ARTICLE(state, updatearticle) {
+      state.updatearticle = updatearticle
+    },
+    FETCH_ARTICLE(state, article) {
+      state.article = article
     },
     LOGIN_ERROR(state, loginError) {
       state.loginError = loginError
@@ -323,14 +333,29 @@ export default new Vuex.Store({
       const articleId = article.id
       const DELETE_ARTICLE_URL = `/api/v1/community/${articleId}/`
       await axios.delete(DELETE_ARTICLE_URL)
-      commit('DELETE_ARTICLE', article)
+      commit('DELETE_ARTICLE')
     },
     async UPDATE_ARTICLE({ commit }, article) {
       const articleId = article.id
       const UPDATE_ARTICLE_URL = `/api/v1/community/${articleId}/`
-      await axios.put(UPDATE_ARTICLE_URL)
-      commit('UPDATE_ARTICLE', article)
+      const response = await axios.put(UPDATE_ARTICLE_URL, article)
+      commit('UPDATE_ARTICLE', response.data)
     },
+    async CREATE_COMMENT({ commit, getters }, comment) {
+      const token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+      const article_id = getters.getArticle.id
+      const CREATE_COMMENT_URL = `/api/v1/community/${article_id}/comments/`
+      const response = await axios.post(CREATE_COMMENT_URL, comment)
+      console.log(response, commit)
+    },
+    async FETCH_ARTICLE({ commit }, community) {
+      const article_id = community.id
+      const FETCH_ARTICLE_URL = `/api/v1/community/${article_id}/`
+      const response = await axios.get(FETCH_ARTICLE_URL)
+      commit('FETCH_ARTICLE', response.data)
+    }
   },
   modules: {
 
