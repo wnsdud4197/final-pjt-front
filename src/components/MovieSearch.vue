@@ -5,18 +5,12 @@
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
           @click="onClickCategory()"
         >
-        <!-- @click="onClickGenre()" -->
-        <label class="btn btn-outline-primary" for="btnradio1">장르 / 언어별</label>
-
-        <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-          @click="onClickLanguage()"
-        >
-        <label class="btn btn-outline-primary" for="btnradio2">언어별</label> -->
+        <label class="btn btn-outline-success" for="btnradio1">장르 / 언어별</label>
 
         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
           @click="onClickAll()"
         >
-        <label class="btn btn-outline-primary" for="btnradio3">전체 영화</label>
+        <label class="btn btn-outline-success" for="btnradio3">전체 영화</label>
       </div>
     </div>
     <div v-if="checkSearchMovie">
@@ -27,19 +21,19 @@
     </div>
 
     <div v-else>
-      <div  class="container mt-4 m-3">
+      <div  class="container mt-4 ms-3 me-0">
         <div class="row">
 
           <!-- 카테고리 버튼 -->
           <div class="col-2">
-            <div class="my-2">            
-              <button v-if="checkGenre" @click="onClickGenre()" class="btn btn-light" style="background-color: salmon;">장르별</button>
-              <button  v-else @click="onClickGenre()" class="btn btn-light">장르별</button>
+            <div class="my-2 ms-3">            
+              <button v-if="checkGenre" @click="onClickGenre()" class="btn btn-white fw-bold" style="color: #018786"><h3 class="fw-bold">장르별</h3></button>
+              <button  v-else @click="onClickGenre()" class="btn btn-white fw-bold" style="color: #f8f9fa"><h4>장르별</h4></button>
             </div>
 
-            <div class="my-2">
-              <button v-if="checkLanguage" @click="onClickLanguage()" class="btn btn-light" style="background-color: salmon;">언어별</button>
-              <button v-else @click="onClickLanguage()" class="btn btn-light">언어별</button>             
+            <div class="my-2 ms-3">
+              <button v-if="checkLanguage" @click="onClickLanguage()" class="btn btn-white fw-bold" style="color: #018786"><h3 class="fw-bold">언어별</h3></button>
+              <button v-else @click="onClickLanguage()" class="btn btn-white fw-bold" style="color: #f8f9fa"><h4>언어별</h4></button>             
             </div>          
           </div>
 
@@ -49,16 +43,18 @@
               <carousel
                 v-if="categoryGenre && categoryGenre.length"
                 :items="3"
-                :nav="true"
-                :dots="false" 
+                :nav="false"
+                :dots="true" 
                 :rewind="false"
-                :mouseDrag="false"
+                :mouseDrag="true"
+                :autoplay="true"
                 class="marginTop50"
               >
                 <MovieCategory
                   v-for="categoryItem in categoryGenre"
                   :key="categoryItem.id"
                   :categoryItem="categoryItem"
+                  :autoplayTimeout="2000"
                 />
               </carousel>      
             </section>
@@ -68,10 +64,12 @@
               <carousel
                 v-if="categoryLanguage && categoryLanguage.length"
                 :items="3"
-                :nav="true"
-                :dots="false" 
+                :nav="false"
+                :dots="true" 
                 :rewind="false"
-                :mouseDrag="false"
+                :mouseDrag="true"
+                :autoplay="true"
+                :autoplayTimeout="2000"
                 class="marginTop50"
               >
                 <MovieCategory
@@ -154,7 +152,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .check-category {
   background-color: salmon;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>무비</h1>
+    <!-- <h1 style="color: #d3d3d3;">Movie</h1> -->
     <MovieSearch/>
     <MovieList/>
   </div>

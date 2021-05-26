@@ -37,7 +37,7 @@
             </li>
             <li class="nav-item ms-1">
               <router-link to="/profile" class="profile" id="nav-btn">
-                <img v-if="profile === 'http://localhost:8000'" src="@/assets/profile.png" alt="" class="profileimage border border-3 rounded-circle">
+                <img v-if="profile === 'http://localhost:8000null'" src="@/assets/profile.png" alt="" class="profileimage border border-3 rounded-circle">
                 <img v-else :src="profile" alt="" class="profileimage border border-3 rounded-circle">          
               </router-link>
             </li>          

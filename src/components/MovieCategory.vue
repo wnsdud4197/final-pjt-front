@@ -2,9 +2,8 @@
   <div class="col">
     <div class="card" style="width: 18rem;">
       <div class="card-body" @click="onClick(categoryItem.id)">
-        <p class="card-text">{{ categoryItem.name }}</p>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <p class="card-text">{{ categoryItem.movie_count }}</p>
+        <h3 class="card-text fw-bold">{{ categoryItem.name }}</h3>
+        <p class="card-text">{{ categoryItem.movie_count }}개</p>
       </div>
     </div>
   </div>
@@ -30,8 +29,8 @@ export default {
 }
 </script>
 
-<style>
-.card:hover {
-  
+<style scoped>
+.card {
+  cursor: pointer;
 }
 </style>
