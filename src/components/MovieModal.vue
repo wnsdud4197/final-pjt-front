@@ -109,7 +109,7 @@ export default {
       .then(() => {
         // const articles = this.$store.getters.getArticleMovie // 게시글 전체
         // console.log(articles)
-        this.$router.push('/community')
+        this.$router.push('/moviereview')
       })     
     },
   },

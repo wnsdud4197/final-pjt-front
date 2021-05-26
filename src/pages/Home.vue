@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div>
-        <h1>Wellcome</h1>
+        <h1></h1>
         <img src="@/assets/Logo.png" alt="">
       </div>
       

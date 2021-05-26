@@ -17,24 +17,17 @@
 
 <script>
 export default {
-  name: 'CommunityList',
+  name: 'communityList',
   computed: {
     communityList() {
       // return this.$store.getters.getCommunityList
       return this.$store.getters.getArticleMovie
     }
   },
-  async created() {
-    this.$store.dispatch('FETCH_COMMUNITY_LIST')
-  },
   methods: {
-    onClick(community) {
-      // this.$store.commit('CREATE_ARTICLE', commuinty)
-      this.$store.dispatch('FETCH_ARTICLE', community)
-        .then(() => {
-          this.$router.push('/detail')
-
-        })
+    onClick(commuinty) {
+      this.$store.commit('CREATE_ARTICLE', commuinty)
+      this.$router.push('/detail')
     },
   },
 }
