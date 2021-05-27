@@ -32,5 +32,8 @@ export default {
 <style scoped>
 .card {
   cursor: pointer;
+  background-color: #d3d3d3;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 </style>

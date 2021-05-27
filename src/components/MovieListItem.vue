@@ -1,10 +1,12 @@
 <template>
   <div class="col m-3">
-    <div class="card" style="width: 18rem;" @click="onClick(movie)">
-      <img v-if="movie.poster_path" :src="poster_path" class="card-img-top" alt="...">
-      <img v-else src="@/assets/zzanggu.png" class="card-img-top" alt="...">
+    <div class="card d-flex justify-content-center" style="width: 18rem;" @click="onClick(movie)">
+      <div style="text-align: center;">
+        <img v-if="movie.poster_path" :src="poster_path" class="card-img-top" style="display: block; margin: 0px auto;">
+        <img v-else src="@/assets/zzanggu.png" class="card-img-top" style="display: block; margin: 0px auto;">
+      </div>      
       <div class="card-body">
-        <p class="card-text">{{ movie.title }}</p>
+        <h4 class="card-text movie-title">{{ movie.title }}</h4>
       </div>
     </div>
   </div>
@@ -34,9 +36,20 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  background-color: #2C2F32;
+}
+
 .card:hover {
   animation: heartBeat;
   animation-duration: 2s;
   opacity: 0.90;
+}
+
+.movie-title {
+  /* background-color: #121212; */
+  color: #f8f9fa;
+  margin-top: 3px;
+  font-weight: bold;
 }
 </style>
