@@ -33,6 +33,7 @@ export default {
     return {
       updateMode: false,
       updateComment: {
+        id: this.comment.id,
         content: this.comment.content,
       },
       user: localStorage.getItem('user'),
@@ -54,7 +55,9 @@ export default {
       this.updateMode = false
     },
     onClickUpdate() {
-
+      this.$store.dispatch('UPDATE_COMMENT', this.updateComment)
+      this.updateMode = false
+      this.comment.content = this.updateComment.content
     }
   }
 }

@@ -166,6 +166,7 @@ export default new Vuex.Store({
     },
     CREATE_ARTICLE(state, article) {
       state.article = article
+      state.commentList = []
     },
     ARTICLE_MOVIE(state, article) {
       state.articleMovie = article
@@ -393,6 +394,13 @@ export default new Vuex.Store({
       const FETCH_COMMENT_URL = `/api/v1/community/${comment.community}/comments/`
       const nextResponse = await axios.get(FETCH_COMMENT_URL)
       commit('FETCH_COMMENT_LIST', nextResponse.data)
+    },
+    async UPDATE_COMMENT({ commit }, comment) {
+      const commentId = comment.id
+      console.log(commentId)
+      const UPDATE_COMMENT_URL = `/api/v1/community/comments/${commentId}/`
+      await axios.put(UPDATE_COMMENT_URL, comment)
+      console.log(commit)
     }
   },
   modules: {

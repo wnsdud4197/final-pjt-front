@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p>디테일페이지</p>
-    <div class="d-flex justify-content-center">
+    <div v-if="article && Object.keys(article).length" class="d-flex justify-content-center mt-5">
       <div class="mx-5">
         <img :src="poster_path" alt="...">
       </div>      
@@ -9,14 +8,15 @@
       <div class="box mx-5">
         <div v-if="update">
           <div class="container bg-secondary border rounded mb-3">
-            <h1 class="my-2">{{ article.title }}</h1>
+            <h2 class="my-2 text-start">{{ article.movie.title }}</h2>
+          </div>
+          <div class="container bg-secondary border rounded mb-3">
+            <h2 class="my-2 text-start">{{ article.title }}</h2>
           </div>
           <div class="container bg-secondary border rounded">
+            <p class="my-3 text-end">작성시간 : {{ $moment(article.created_at).format("YYYY년 MM월 DD일 hh시 mm분") }}</p> 
+            
             <h3 class="my-3">{{ article.content }}</h3>
-            <div class="d-flex">
-              <p class="mx-3">작성시간 : {{ $moment(article.created_at).format("YYYY년 MM월 DD일") }}</p> 
-              <p class="mx-3">마지막 수정시간 : {{ $moment(article.updated_at).format("YYYY년 MM월 DD일") }}</p> 
-            </div>
             <div v-if="user === article.user.username" class="my-5">
               <button class="mx-2 btn btn-light" @click="onClickUpdate()">수정</button>
               <button class="mx-2 btn btn-light" @click="onClickDelete()">삭제</button>

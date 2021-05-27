@@ -36,7 +36,7 @@ export default {
       this.$store.dispatch('FETCH_MOIVE_RANDOM')
       .then(() => {
         this.movieRandom = this.$store.getters.getMovieRandom
-        // console.log(this.movieRandom.title)
+        this.$store.dispatch('MOVIE_CHECK', this.movieRandom)
         this.$store.commit('UPDATE_MODAL_MOVIE', this.movieRandom)
         this.$store.commit('SHOW_MODAL')
       })
