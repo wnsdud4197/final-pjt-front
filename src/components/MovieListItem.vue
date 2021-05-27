@@ -1,6 +1,6 @@
 <template>
   <div class="col m-3">
-    <div class="card d-flex justify-content-center" style="width: 18rem;" @click="onClick(movie)">
+    <div class="card d-flex justify-content-center ms-2" style="width: 18rem;" @click="onClick(movie)">
       <div style="text-align: center;">
         <img v-if="movie.poster_path" :src="poster_path" class="card-img-top" style="display: block; margin: 0px auto;">
         <img v-else src="@/assets/zzanggu.png" class="card-img-top" style="display: block; margin: 0px auto;">
@@ -38,6 +38,7 @@ export default {
 <style scoped>
 .card {
   background-color: #2C2F32;
+  cursor: pointer;
 }
 
 .card:hover {

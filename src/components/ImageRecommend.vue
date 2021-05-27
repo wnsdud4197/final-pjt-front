@@ -1,35 +1,34 @@
 <template>
-  <div class="container">
-    <div class="border rounded" style="width: 70%; heigth:40%;">
-      <div class="d-flex justify-content-center m-3" style="width: 100%;">
+  <div>
+    <div class="border rounded">
+      <div class="m-3 d-flex flex-column">
         <div>
           <div class="m-1">
-            <input ref="recommend" class="form-control col-3" type="file" id="formFile" @change="onChangeImages">
+            <input ref="recommend" class="form-control" type="file" id="formFile" @change="onChangeImages">
           </div>
-          <div class="m-1" style="width: 100%;">
+          <div class="m-1">
             <img v-if="imageUrl" :src="imageUrl" class="input_image">
             <img v-else src="@/assets/not_found.png" alt="" class="input_image">
           </div>
         </div>
-        <div>
+        <community-detail-view>
           <ImageLabel
             v-for="(label, idx) in labels"
             :key="idx"
             :label="label"
           />
-        </div>
+        </community-detail-view>
       </div>
-      <div>
+      <div class="my-3">
         <button class="btn btn-outline-info" @click="onClick">이미지로 추천받기!</button>
       </div>
     </div>
-    <div>
+    <div class="mt-3">
       <LabelMovie
         v-for="(labelMovie, idx) in labelMovies"
         :key="idx"
         :labelMovie="labelMovie"
       />
-
     </div>
   </div>
 </template>

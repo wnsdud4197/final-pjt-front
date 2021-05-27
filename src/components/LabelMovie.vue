@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h2>{{ labelMovie.label }}</h2>
+    <div>
+      <div class="alert alert-success" role="alert">
+        <h2>{{ labelMovie.label }}</h2>
+      </div>
+    </div>
     <div class="d-flex">
       <MovieListItem
         v-for="(movie, idx) in labelMovie.movie"

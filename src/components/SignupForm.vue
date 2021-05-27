@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container pt-4 mt-5">
     <div class="d-flex justify-content-center">
       <div v-if="signupError" class="alert alert-warning error" role="alert" style="width: 40%;">
         <i class="fas fa-exclamation-triangle"></i> 
@@ -28,7 +28,7 @@
             <img v-else src="@/assets/profile.png" style="height: 150px; width: 150px;" class="mt-2">
           </div>
           <button @click.prevent="onClick" class="w-100 btn btn-lg btn-success my-3" type="submit">회원가입</button>
-          <p class="mt-3 mb-0 text-white">&copy; 갓준영보유팀</p>
+          <p class="mt-3 mb-0 text-white">&copy; SSAFY GJ</p>
         </form>
       </div>
     </div>    
@@ -143,10 +143,15 @@ export default {
   }
 
   form {
+    font-family: 'InfinitySans-RegularA1';
     width: 75%;
   }
 
   .error {
     opacity: 0.9;
+  }
+
+  h1 {
+    color: #d3d3d3
   }
 </style>

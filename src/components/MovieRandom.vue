@@ -2,10 +2,17 @@
   <div>
     <div class="card bg-dark text-white">
       <img src="@/assets/background.jpg" class="card-img" alt="...">
-      <div class="card-img-overlay d-flex align-items-center justify-content-center">
-        <button class="btn btn-white" @click="onClick()">
+      <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center">
+        <div class="mb-4">
           <img src="@/assets/random.png" style="width: 80%; height: auto;">
-        </button>
+        </div>
+        <div>
+          <button class="btn" @click="onClick()">
+            <h3 class="mx-3">
+               Click <i class="fas fa-mouse"></i>
+            </h3>
+          </button>
+        </div>
       </div>
     </div>
     <MovieModal v-if="showModal" @close="closeModal">
@@ -59,6 +66,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.btn {
+  background-color: #2f7cf6 !important;
+  opacity: 0.9;
+}
 </style>

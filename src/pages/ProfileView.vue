@@ -2,20 +2,20 @@
   <div>
     <h1></h1>
     <div class="d-flex align-items-center justify-content-center my-5">
-      <div class="mx-4">
+      <div class="mx-5">
         <img v-if="profilePicture === 'http://localhost:8000null'" src="@/assets/profile.png" style="height: 250px; width: 250px;" class="profileimage border border-3 rounded-circle">
         <img v-else :src="profilePicture" style="height: 250px; width: 250px;" class="profileimage border border-3 rounded-circle">
       </div>
-      <div class="mx-4">
+      <div class="mx-5">
         <h2><span style="font-size:40pt; color: #c490bf;" class="fw-bold">{{ loginUser }}</span>님 <i class="fas fa-user"></i></h2>
       </div>      
     </div>
     <div class="btn-group mt-4" role="group" aria-label="Basic radio toggle button group">
       <input type="radio" class="btn-check px-3" name="btnradio" id="btnradio1" autocomplete="off" @click="onKeep(loginUser)">
-      <label :class="{ checked: isKeep }" class="btn btn-outline-white check" for="btnradio1">찜한 영화</label>
+      <label :class="{ checked: isKeep }" class="btn btn-outline-white check" for="btnradio1"><h3 class="mx-3">찜한 영화</h3></label>
 
       <input type="radio" class="btn-check px-3" name="btnradio" id="btnradio2" autocomplete="off" @click="onLike(loginUser)">
-      <label :class="{ checked: isLike }" class="btn btn-outline-white check" for="btnradio2">좋아요한 영화</label>
+      <label :class="{ checked: isLike }" class="btn btn-outline-white check" for="btnradio2"><h3 class="mx-3">좋아요한 영화</h3></label>
     </div>
     <div class="row" style="background-color: #c490bf;">
       <!-- use the modal component, pass in the prop -->
@@ -123,4 +123,5 @@ h1, h2 {
   color: #121212;
   border-color: #c490bf;
 }
+
 </style>

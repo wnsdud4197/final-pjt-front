@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-4">
-    <div class="d-flex justify-content-center">
+  <div class="container mt-5 pt-5">
+    <div class="d-flex justify-content-center mt-5">
       <div v-if="loginError" class="alert alert-danger error" role="alert" style="width: 40%;">
         <i class="fas fa-exclamation-triangle"></i> 
         이메일이나 비밀번호가 정확하지 않습니다.
@@ -10,7 +10,7 @@
     <div class="d-flex justify-content-center mt-2">
       <div class="box d-flex justify-content-center align-items-center">
         <form>
-          <h1 class="h3 mb-3 mt-5 fw-normal fw-bold">로그인</h1>
+          <h1 class="h3 mb-4 mt-5 fw-normal fw-bold">로그인</h1>
           <div class="form-floating my-3">
             <input v-model="userInfo.username" type="text" class="form-control" id="username" placeholder="name@example.com">
             <label for="username">유저이름</label>
@@ -20,7 +20,7 @@
             <label for="password">비밀번호</label>
           </div>
           <button @click.prevent="onClick" class="w-100 btn btn-lg btn-primary my-3" type="submit">로그인</button>
-          <p class="mt-5 mb-2 text-white">&copy; 갓준영보유팀</p>
+          <p class="mt-5 mb-2 text-white">&copy; SSAFY GJ</p>
         </form>
       </div>
     </div>    
@@ -116,10 +116,15 @@ export default {
   }
 
   form {
+    font-family: 'InfinitySans-RegularA1';
     width: 75%;
   }
 
   .error {
     opacity: 0.9;
+  }
+
+  h1 {
+    color: #d3d3d3
   }
 </style>
