@@ -2,7 +2,7 @@
   <div class="col">
     <div class="card" style="width: 18rem;">
       <div class="card-body" @click="onClick(categoryItem.id)">
-        <h3 class="card-text fw-bold">{{ categoryItem.name }}</h3>
+        <h2 class="card-text fw-bold">{{ categoryItem.name }}</h2>
         <p class="card-text">{{ categoryItem.movie_count }}개</p>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
 
 <style scoped>
 .card {
+  font-family: 'KyoboHand';
   cursor: pointer;
   background-color: #d3d3d3;
   padding-top: 7px;

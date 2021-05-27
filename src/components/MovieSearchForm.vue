@@ -14,7 +14,7 @@
       <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-medium">
         <div role="search" class="sbx-medium__wrapper">
           <input type="search" name="search" placeholder="Search your movie" autocomplete="off" required="required" class="sbx-medium__input" 
-            @input="changed"
+            @keydown="changed"
             v-model="value"
           >
           <button type="submit" title="Submit your search query." class="sbx-medium__submit">
@@ -61,11 +61,11 @@ export default {
 .sbx-medium {
   display: inline-block;
   position: relative;
-  width: 200px;
-  height: 37px;
+  width: 450px;
+  height: 57px;
   white-space: nowrap;
   box-sizing: border-box;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .sbx-medium__wrapper {
@@ -78,7 +78,7 @@ export default {
   -webkit-transition: box-shadow .4s ease, background .4s ease;
   transition: box-shadow .4s ease, background .4s ease;
   border: 0;
-  border-radius: 19px;
+  border-radius: 29px;
   box-shadow: inset 0 0 0 1px #D9D9D9;
   background: #FFFFFF;
   padding: 0;
@@ -171,8 +171,8 @@ export default {
 .sbx-medium__reset {
   display: none;
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 14px;
+  right: 12px;
   margin: 0;
   border: 0;
   background: none;
@@ -193,8 +193,8 @@ export default {
 .sbx-medium__reset svg {
   display: block;
   margin: 4px;
-  width: 13px;
-  height: 13px;
+  width: 18px;
+  height: 18px;
 }
 
 .sbx-medium__input:valid ~ .sbx-medium__reset {

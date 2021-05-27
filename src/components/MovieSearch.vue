@@ -21,7 +21,7 @@
     </div>
 
     <div v-else class="my-4">
-      <div  class="mt-5 mx-2">
+      <div class="mt-4 mx-2">
         <div class="row me-0">
 
           <!-- 카테고리 버튼 -->
@@ -84,6 +84,7 @@
           </div>      
         </div>      
       </div>
+      <MovieList/>
     </div>
   </div>
 </template>
@@ -93,6 +94,7 @@ import MovieSearchForm from '@/components/MovieSearchForm'
 import MovieCategory from '@/components/MovieCategory'
 import MovieSearchList from '@/components/MovieSearchList'
 import carousel from 'vue-owl-carousel'
+import MovieList from '@/components/MovieList'
 
 export default {
   name: 'MovieSearch',
@@ -101,6 +103,7 @@ export default {
     MovieCategory,
     MovieSearchList,
     carousel,
+    MovieList
   },
   data() {
     return {
@@ -112,6 +115,7 @@ export default {
       checkSearchMovie: false,
       isCategory: true,
       isAll: false,
+      categoryGenreShow: false
     }
   },
   methods: {
@@ -134,7 +138,7 @@ export default {
     },
     onClickGenre() {
       this.checkLanguage = false
-      this.checkGenre = true      
+      this.checkGenre = true
     },
     onClickLanguage() {
       this.checkGenre = false
@@ -161,6 +165,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .check-category {
   background-color: salmon;
 }

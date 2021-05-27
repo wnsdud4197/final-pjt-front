@@ -4,6 +4,7 @@
     <MovieSearchForm/>
     <div class="list-group overflow-auto" style="max-height: 300px">
       <button 
+        id="search-movie-list"
         v-for="(searchItem, idx) in searchMovieList"
         :key="idx"
         type="button"
@@ -13,29 +14,30 @@
         {{ searchItem.title }}
       </button>
     </div>
-    <div v-if="this.article.movie" class="card">
-      <div class="row g-0">
-        <div class="col-4">
+    <div v-if="this.article.movie" class="card" id="review-movie">
+      <div class="row g-0 my-3">
+        <div class="col-4" id="review-movie-image">
           <img :src="tmdbImage + searchMovie.poster_path" height="500px">
         </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title">{{ this.searchMovie.title }}</h5>
-            <p class="card-text">{{ this.searchMovie.overview }}</p>
+        <div class="col-8" id="review-movie-info">
+          <div class="card-body me-5">
+            <h1 class="card-title text-start mt-4">{{ this.searchMovie.title }}</h1>
+            <h5 class="card-text text-start mt-4">{{ this.searchMovie.overview }}</h5>
           </div>
         </div>
       </div>
     </div>
-    <p>리뷰 폼</p>
-    <div class="mb-3">
-      <label for="review-title" class="form-label">리뷰 제목</label>
+    <div class="mt-5 mb-5 text-start">
+      <label for="review-title" class="form-label"><h2>리뷰 제목</h2></label>
       <input v-model="article.title" type="text" class="form-control" id="review-title" placeholder="리뷰 제목">
     </div>
-    <div class="mb-3">
-      <label for="review-content" class="form-label">리뷰 내용</label>
+    <div class="my-3 text-start">
+      <label for="review-content" class="form-label"><h2>리뷰 내용</h2></label>
       <textarea v-model="article.content" class="form-control" id="review-content" rows="5" placeholder="리뷰 내용"></textarea>
     </div>
-    <button @click="onClick">리뷰 작성</button>
+    <button @click="onClick" class="btn btn-outline-light mt-3 mb-3 mx-3">
+        <h3 class="my-1 mx-3 fw-bold">리뷰 작성</h3>
+      </button>
   </div>
 </template>
 
@@ -82,6 +84,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h2 {
+  color: #f8f9fa;
+}
+
+#review-title {
+  font-size: 20px;
+  height: 4rem;
+}
+
+#review-content {
+  font-size: 20px;
+  height: 30rem;
+}
+
+#review-movie {
+  background-color: #f1f1f2;
+}
+
+#search-movie-list {
+  background-color: #f1f1f2;
+}
 
 </style>

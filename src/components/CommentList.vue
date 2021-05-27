@@ -9,10 +9,16 @@
         <button @click="onClickBack()" class="btn btn-danger m-1">취소</button>
       </div>
     </li>
-    <li v-else class="list-group-item d-flex justify-content-between align-items-start">
+    <li v-else class="list-group-item d-flex justify-content-between align-items-center">
+      
       <div class="ms-2 me-auto">
-        <div class="fw-bold text-start">작성자 | {{ comment.user.username }}</div>
         <div class="text-start">{{ comment.content }}</div>
+      </div>
+      <div>
+        <div>
+          
+        </div>
+        <div class="text-start me-3">{{ $moment(comment.updated_at).format("YYYY.MM.DD HH : mm")}} <i class="fas fa-user-edit ms-4"></i> {{ comment.user.username }}</div>
       </div>
       <div>
         <div v-if="user === comment.user.username">
@@ -63,6 +69,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+li {
+  background-color: f1f1f2;
+}
 </style>

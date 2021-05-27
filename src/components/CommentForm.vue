@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="mt-3 ms-2 d-flex ">
-      <div class="comment-input">
-        <input v-model="comment.content" type="text" class="form-control m-2" id="review-title" placeholder="댓글 작성">
+    <div class="mt-3 row">
+      <div class="col-1"></div>
+      <div class="comment-input col-9">
+        <input v-model="comment.content" type="text" class="form-control m-2" id="review-title" placeholder="댓글 작성" style="width: 100%">
       </div>
-      <div class="col-3 d-flex justify-content-center align-items-center">
-        <button class="btn btn-outline-light btn-sm" @click="onClick">댓글 작성</button>
+      <div class="text-start col-1 mt-1">
+        <button class="btn btn-outline-light btn" @click="onClick"><i class="fas fa-feather-alt" style="font-size: 30px"></i></button>
       </div>
     </div>
   </div>
@@ -31,7 +32,5 @@ export default {
 </script>
 
 <style scoped>
-.comment-input {
-  width: 70%;
-}
+
 </style>

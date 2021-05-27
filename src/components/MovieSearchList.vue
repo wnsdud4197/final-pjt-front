@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row m-5">
     <!-- use the modal component, pass in the prop -->
     <MovieModal v-if="showModal" @close="closeModal">
       <!--

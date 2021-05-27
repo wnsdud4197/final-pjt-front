@@ -75,6 +75,7 @@ export default {
 
 <style>
 nav {
+  font-family: 'InfinitySans-RegularA1';
   background-color: #000000;
   height: 60px;
   z-index: 1000;
